@@ -1,6 +1,6 @@
 
     var jsonStr = [
-    {
+    { 
     "name": "Bang Bang",
     "outline": "A chance encounter with a mysterious charmer leads to a bank employee's wild adventure.",
     "rating": 5.6,
