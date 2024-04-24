@@ -2022,7 +2022,7 @@
                                             <div class="col-4">
                                             </div>
                                             <div class="col-4">
-                                                <input type="text" id="myInput" class="form-control" style="margin: auto;display: block;" size="50" placeholder="Search" title="Type in a name">
+                                                <input type="text" id="searchText" class="form-control" style="margin: auto;display: block;" size="50" placeholder="Search" title="Type in a name">
                                             </div>
                                             <div class="col-4">
                                             </div>
@@ -2094,37 +2094,31 @@
 		src="https://a.pemsrv.com/fp-interstitial.js"></script>
 <script>
     $(document).ready(function () {
-        console.log(brands)
+        $("#brandsMain").html("")
         $.each(brands, function (key, brand) {
-            $("#brandsMain").append(`<div class="col-lg-2 col-md-2 col-sm-6 col-6" id="Brand-${key}">
+                $("#brandsMain").append(`<div class="col-lg-2 col-md-2 col-sm-6 col-6" id="Brand-${key}">
                                             <figure class="snip1466">
                                                 <img src=${brand.PhotoLink} alt="sample52" />
-                                                <a href="Search?brand=${brand.Name}" class="nav-link " style="padding-top:30px; "></a>
+                                                <a href="video.html?id=${brand.Name}" class="nav-link " style="padding-top:30px; "></a>
                                                 <p style="font-size:large" id="BrandSpan-${key}"><span>${brand.Name}</span></p>
                                             </figure>
                                         </div>`);
-        })
-        
-        $('#myInput').on('input', function (e) {
-            myFunction()
+            });
+        $("#searchText, #searchField").on("change paste keyup", function() {
+            $("#brandsMain").html("")
+            var searchText = $("#searchText").val().toLowerCase();
+            let searchBrands = brands.filter(({Name}) => Name.toLowerCase().includes(searchText)); 
+            $.each(searchBrands, function (key, brand) {
+                $("#brandsMain").append(`<div class="col-lg-2 col-md-2 col-sm-6 col-6" id="Brand-${key}">
+                                            <figure class="snip1466">
+                                                <img src=${brand.PhotoLink} alt="sample52" />
+                                                <a href="video.html?id=${brand.Name}" class="nav-link " style="padding-top:30px; "></a>
+                                                <p style="font-size:large" id="BrandSpan-${key}"><span>${brand.Name}</span></p>
+                                            </figure>
+                                        </div>`);
+            });
         });
     });
-    function myFunction() {
-        var brand, p, input, filter, a, txtValue;
-        input = document.getElementById("myInput");
-        filter = input.value.toUpperCase();
-        // var aaa = $(`#BrandSpan-0 span`).html()
-        console.log("s")
-        for (i = 0; i < brands.Count; i++) {
-            a = $(`#BrandSpan-${i} span`).html()
-            // txtValue = a.textContent || a.innerText;
-            if (a.toUpperCase().indexOf(filter) != -1) {
-                $(`#Brand-${i}`).css("display", "");
-            } else {
-                $(`#Brand-${i}`).css("display", "none");
-            }
-        }
-    }
     var currentUrl = window.location.hash.substr(1);
     //alert(currentUrl);
     if (currentUrl !== "") {
