@@ -334,7 +334,7 @@
 
             //Latest
             var videosLatestFiltered = videos.slice(videos.length - 18,videos.length);
-            
+            videosLatestFiltered = videosLatestFiltered.reverse()
             $("#LatestVideosData").html(`<div id="Main-carousel" class="owl-carousel owl-theme">
                                                 </div>`);
             
@@ -349,6 +349,7 @@
             //trending 
             // const shuffledTrending = peakOfTheDayVideos.sort(() => 0.5 - Math.random());
             let selectedTrending = peakOfTheDayVideos.slice(peakOfTheDayVideos.length - 18,peakOfTheDayVideos.length);
+            selectedTrending = selectedTrending.reverse()
             $("#TrendingVideosData").html(`<div id="Trending-carousel" class="owl-carousel owl-theme">
                                                 </div>`);
 
