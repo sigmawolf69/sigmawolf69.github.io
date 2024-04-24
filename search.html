@@ -2123,7 +2123,7 @@
         $("#searchText, #searchField").on("change paste keyup", function() {
             $("#searchMain").html("")
             var searchText = $("#searchText").val().toLowerCase();
-            let searchVideos = videos.filter(({name}) => name.includes(searchText)); 
+            let searchVideos = videos.filter(({name}) => name.toLowerCase().includes(searchText)); 
             var videosSearchFiltered = searchVideos.slice(searchVideos.length - 18,searchVideos.length);
             videosSearchFiltered = videosSearchFiltered.reverse()
             console.log(videosSearchFiltered)
