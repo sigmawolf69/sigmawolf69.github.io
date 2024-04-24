@@ -371,7 +371,7 @@
             $.each(randomTags, function (key, tag) {
                 $("#Tags-carousel").append(`<figure class="snip1466">
                                                             <img src=${tag.PhotoLink} alt="sample52" />
-                                                            <a href="Video.html?id=${tag.Name}" class="nav-link " style="padding-top:30px;"></a>
+                                                            <a href="search.html?tag=${tag.Name}" class="nav-link " style="padding-top:30px;"></a>
                                                             <p style="font-size:large"> <span>${tag.Name}</span></p>
                                                         </figure>`);
             })
@@ -400,7 +400,7 @@
             $.each(randomBrands, function (key, brand) {
                 $("#Brands-carousel").append(`<figure class="snip1466">
                                                             <img src=${brand.PhotoLink} alt="sample52" />
-                                                            <a href="Video.html?id=${brand.Name}" class="nav-link " style="padding-top:30px;"></a>
+                                                            <a href="search.html?brand=${brand.Name}" class="nav-link " style="padding-top:30px;"></a>
                                                             <p style="font-size:large"> <span>${brand.Name}</span></p>
                                                         </figure>`);
             })

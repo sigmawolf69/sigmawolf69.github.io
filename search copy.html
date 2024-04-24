@@ -71,7 +71,6 @@
     <script type="text/javascript" src="./js/site.js"></script>
     <script type="text/javascript" src="./video.js"></script>
     <script type="text/javascript" src="./brands.js"></script>
-    <script type="text/javascript" src="./tags.js"></script>
 
     <script src="https://imasdk.googleapis.com/js/sdkloader/ima3_debug.js"></script>
 
@@ -84,355 +83,10 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Questrial">
 
     <script src="https://cdn.rawgit.com/MailOnline/videojs-vast-vpaid/master/bin/videojs_5.vast.vpaid.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <!-- <script src="https://cdn.viblast.com/vb/stable/viblast.js"></script> -->
     <script src="./lib/viblast.js"></script>
-    <script src="./aaa.js"></script>
-    <style>@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600);
-        body, input, .sort {
-          font-family: 'Open Sans', sans-serif;
-          font-weight: 300;
-          background:#f2f3f5;
-        }
-        
-        #sandbox {
-          margin: 0px;
-          display:flex;
-        }
-        .sideb {
-          flex:0 0 25%;
-        }
-        
-        .listb {
-          flex-grow:1;
-          margin-left:50px;
-        }
-        
-        input {
-          border: solid 1px #ccc;
-          border-radius: 5px;
-          padding: 7px 14px;
-          margin-bottom: 10px;
-          width: 100%;
-          display:block;
-        }
-        input:focus {
-          outline: none;
-          border-color: #aaa;
-        }
-        
-        
-        
-        .sort {
-          padding: 8px 16px;
-          border-radius: 0px;
-          border: none;
-          display: inline-block;
-          color: #fff;
-          vertical-align:top;
-          text-decoration: none;
-          background-color: #28a8e0;
-          height: 36px;
-          margin: 5px 5px;
-        }
-        .sort:hover {
-          text-decoration: none;
-          background-color: #1b8aba;
-        }
-        .sort:focus {
-          outline: none;
-        }
-        .sort:after {
-          width: 0;
-          height: 0;
-          border-left: 5px solid transparent;
-          border-right: 5px solid transparent;
-          border-bottom: 5px solid transparent;
-          content: "";
-          position: relative;
-          top: -10px;
-          right: -5px;
-        }
-        .sort .asc:after {
-          width: 0;
-          height: 0;
-          border-left: 5px solid transparent;
-          border-right: 5px solid transparent;
-          border-top: 5px solid #fff;
-          content: "";
-          position: relative;
-          top: 13px;
-          right: -5px;
-        }
-        .sort .desc:after {
-          width: 0;
-          height: 0;
-          border-left: 5px solid transparent;
-          border-right: 5px solid transparent;
-          border-bottom: 5px solid #fff;
-          content: "";
-          position: relative;
-          top: -10px;
-          right: -5px;
-        }
-        
-        .list {
-          margin: 0;
-          padding: 20px 0 0;
-        }
-        .list li {
-          display: block;
-          background-color: #fff;
-          padding: 20px;
-          box-shadow: inset 0 1px 0 #fff;
-          margin-bottom: 20px;
-        }
-        .list li h3 {
-          font-size: 24px;
-          line-height:34px;
-          margin:0 0 10px 0;
-          font-weight: 600;
-        }
-        
-        .list li a {
-          text-decoration:none;
-          color:#0c0c0c
-        }
-        
-        .list li .jobType {
-          margin: 0;
-          background-color:rgba(43,91,167,.58);
-          color:#fff;
-          font-size: 12px;
-          display:inline-block;
-          padding:5px 10px;
-        }
-        .list li .jobLocation {
-          margin: 0;
-          padding:6px 10px;
-          display:inline-block;
-          border-left:1px solid #000;
-          margin-left:10px;
-        }
-        
-        
-        .jscroll {
-          height: 700px;
-          overflow-y: scroll;
-          border: 1px solid black;
-        }
-        
-        
-        .ccontainer {
-          display: block;
-          position: relative;
-          padding-left: 35px;
-          margin-bottom: 12px;
-          cursor: pointer;
-          font-size: 16px;
-          -webkit-user-select: none;
-          -moz-user-select: none;
-          -ms-user-select: none;
-          user-select: none;
-        }
-        
-        /* Hide the browser's default checkbox */
-        .ccontainer input {
-          position: absolute;
-          opacity: 0;
-          cursor: pointer;
-          height: 0;
-          width: 0;
-        }
-        
-        /* Create a custom checkbox */
-        .checkmark {
-          position: absolute;
-          top: 0;
-          left: 0;
-          height: 25px;
-          width: 25px;
-          background-color: #eee;
-        }
-        
-        /* On mouse-over, add a grey background color */
-        .ccontainer:hover input ~ .checkmark {
-          background-color: #ccc;
-        }
-        
-        /* When the checkbox is checked, add a blue background */
-        .ccontainer input:checked ~ .checkmark {
-          background-color: #2196F3;
-        }
-        
-        /* Create the checkmark/indicator (hidden when not checked) */
-        .checkmark:after {
-          content: "";
-          position: absolute;
-          display: none;
-        }
-        
-        /* Show the checkmark when checked */
-        .ccontainer input:checked ~ .checkmark:after {
-          display: block;
-        }
-        
-        /* Style the checkmark/indicator */
-        .ccontainer .checkmark:after {
-          left: 9px;
-          top: 5px;
-          width: 5px;
-          height: 10px;
-          border: solid white;
-          border-width: 0 3px 3px 0;
-          -webkit-transform: rotate(45deg);
-          -ms-transform: rotate(45deg);
-          transform: rotate(45deg);
-        }
-        select.location, .jobtypefilter {
-              height: 35px;
-            width: 250px;
-            max-width:80%;
-            padding: 5px;
-            font-size: 16px;
-        }
-        
-        .lpagignate {
-          display:flex;
-          align-items:center;
-        }
-        
-        ul.pagination {
-            list-style-type: none;
-            margin-left: 0;
-            padding-left:0;
-            display: flex;
-        }
-        
-        ul.pagination li {
-            padding: 0px 5px;
-            font-size:14px;
-            font-weight:bold;
-        }
-        
-        ul.pagination li a {
-            color: inherit;
-        }
-        
-        ul.pagination li.active a {
-            color: rgba(43,91,167,1);
-        }
-        
-        .page-arrow {
-          font-size:20px;
-          line-height:1;
-          font-weight:bold;
-          cursor:pointer;
-          background:#fff;
-          padding:5px 10px;
-        }
-        
-        .bottomBox {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        
-        .left-part {
-            flex-grow:1;
-        }
-        .mobFilter {
-          display:none;
-        }
-        
-        @media (max-width:768px) {
-          #sandbox {
-            display: block;
-        }
-          .porpSection {
-            display: none;
-          }
-          .porpSection.activeMob {
-            position: fixed;
-            display:block;
-          }
-          .mobFilter {
-            display:block;
-          }
-          .listb {
-           margin-left:0px;
-        }
-        
-        .porpSection.activeMob {
-            position: fixed;
-            background: #fff;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            top: 50%;
-            padding: 30px;
-            box-shadow: 0px 0px 8px 3px rgba(0,0,0,0.2);
-            z-index: 999;
-            max-width: 85%;
-            max-height:90%;
-            display:block;
-        }
-        
-        
-        
-        body.filterActive:after {
-          content: "";
-          background: rgba(0,0,0,0.5);
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          left: 0;
-          top: 0;
-          z-index: 998;
-        }  
-        
-        body.filterActive {
-          overflow:hidden;
-        }
-        
-         input.search { 
-           display: inline-flex;
-           width: calc(100% - 60px);
-           box-sizing: border-box; 
-        }
-        .mobFilter {
-            display: inline-flex;
-            padding: 0 10px;
-            box-sizing: border-box;
-            width: 34px;
-            justify-content: center;
-            align-items: center;
-            height: 35px;
-            background: #fff;
-            border-radius: 5px;
-            margin-left: 8px;
-            cursor: pointer;
-        }
-        
-        }
-        
-        .xbutton {
-          display:none;
-        }
-        
-        .activeMob .xbutton {
-            display:block;
-            position: absolute;
-            top: -35px;
-            right: -35px;
-            background: #fff;
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 100%;
-            font-weight: bold;
-            font-size: 24px;
-            line-height: 0;
-        }
+
+    <style>
         #myBtn {
             display: none;
             position: fixed;
@@ -2355,50 +2009,33 @@
                     <main id="mainContentArea">
 
 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-                        <div id="sandbox">
 
-                            <div class="sideb">
-                              <input class="search" placeholder="Search" />
-                              <div class="mobFilter"><i class="fas fa-sliders-h"></i></div>
-                              <div class="porpSection">
-                                <button class="xbutton">X</button>
-                                <div class="sortSection">
-                                <h3>Sort By:</h3>
-                                <button class="sort" data-sort="name">
-                              Sort by Name
-                            </button>
-                                <button class="sort" data-sort="releasedDate">
-                              Sort by Date
-                            </button>
-                              </div>
-                              <div class="filterSection">
-                                <div class="filter">
-                                  <h3>Filter by Brands</h3>
-                                  <select id="brand-filter" class="brandFilter selectlist">
-                                    <option selected="selected" value="">All Brands</option>
-                                  </select>
+                        <div class="row Main" >
+                            <div class="col-lg-12">
+                                <div class="card card-outline " style="background-color:#101010; padding-right:2%">
+                                    <div class="tableOverlayContainer">
+                                        <div class="overlay tableOverlay" style="display:none">
+                                            <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                        </div>
+                                        <h2 style="text-align:center">Search</h2>
+                                        <div class="row ">
+                                            <div class="col-4">
+                                            </div>
+                                            <div class="col-4">
+                                                <input type="text" id="searchText" class="form-control" style="margin: auto;display: block;" size="50" placeholder="Search" title="Type in a name">
+                                            </div>
+                                            <div class="col-4">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="filter">
-                                  <h3>Filter by Tag</h3>
-                                  <select id="tags-filter" class="tagsfilter selectlist">
-                                    <option selected="selected" value="">All Tags</option>
-                                  </select>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="row Main" id="searchMain">
+                                    
                                 </div>
-                              </div>
                             </div>
-                             </div>
-                            <div class="listb">
-                              <ul class="list row" id="list">
-                              </ul>
-                              <div class="lpagignate"><span class="jPaginateBack page-arrow"><</span>
-                                <ul class="pagination"></ul><span class="jPaginateNext page-arrow">></span></div>
-                            </div>
-                          </div>
+                        </div>
                                         
 
 
@@ -2457,128 +2094,36 @@
 		data-ad_trigger_method="3"
 		src="https://a.pemsrv.com/fp-interstitial.js"></script>
 <script>
-    
     $(document).ready(function () {
         $("#searchMain").html("")
-        var urlBrand = new URLSearchParams(window.location.search).get("brand");
-        var urlCategory = new URLSearchParams(window.location.search).get("tag");
-
-        for(x in tags ){
-            var sel = document.createElement("option");
-            sel.innerHTML = tags[x].Name;
-            sel.value  = tags[x].Name;
-            document.getElementById("tags-filter").appendChild(sel);
-        }
-        for(x in brands ){
-            var sel = document.createElement("option");
-            sel.innerHTML = brands[x].Name;
-            sel.value  = brands[x].Name;
-            document.getElementById("brand-filter").appendChild(sel);
-        }
         var videosLatest = videos.slice(videos.length - 18,videos.length);
         videosLatest = videosLatest.reverse()
-        // List.js set-up and initialisation
-
-        var options = {
-        valueNames: [
-            "name",
-            { attr: "src", name: "cover_url" },
-            { attr: "href", name: "idLink" },
-            "releasedDate",
-            "brand",
-            "tag"
-        ],
-        item:
-                `<div class="col-4" id="Brand">
-                                                <figure class="snip1466">
-                                                    <img class="cover_url" alt="sample52" />
-                                                    <a class="idLink" class="nav-link " style="padding-top:30px; "></a>
-                                                    <p style="font-size:large" id="BrandSpan"><span class="name"></span></p>
-                                                </figure>
-                                                </div>`,
-        page: 6,
-        pagination: {
-            innerWindow: 2,
-            left: 1,
-            right: 1,
-            paginationClass: "pagination"
-        }
-        };
-
-        
-        var userList = new List("sandbox", options, videos);
-        userList.sort("releasedDate", {
-        order: "desc"
+        $.each(videosLatest, function (key, video) {
+                $("#searchMain").append(`<div class="col-lg-2 col-md-2 col-sm-6 col-6" id="Brand-${key}">
+                                            <figure class="snip1466">
+                                                <img src=${video.cover_url} alt="sample52" />
+                                                <a href="video.html?id=${video.id}" class="nav-link " style="padding-top:30px; "></a>
+                                                <p style="font-size:large" id="BrandSpan-${key}"><span>${video.name}</span></p>
+                                            </figure>
+                                        </div>`);
+            });
+        $("#searchText, #searchField").on("change paste keyup", function() {
+            $("#searchMain").html("")
+            var searchText = $("#searchText").val().toLowerCase();
+            let searchVideos = videos.filter(({name}) => name.toLowerCase().includes(searchText)); 
+            var videosSearchFiltered = searchVideos.slice(searchVideos.length - 18,searchVideos.length);
+            videosSearchFiltered = videosSearchFiltered.reverse()
+            console.log(videosSearchFiltered)
+            $.each(videosSearchFiltered, function (key, video) {
+                $("#searchMain").append(`<div class="col-lg-2 col-md-2 col-sm-6 col-6" id="Brand-${key}">
+                                            <figure class="snip1466">
+                                                <img src=${video.cover_url} alt="sample52" />
+                                                <a href="video.html?id=${video.id}" class="nav-link " style="padding-top:30px; "></a>
+                                                <p style="font-size:large" id="BrandSpan-${key}"><span>${video.name}</span></p>
+                                            </figure>
+                                        </div>`);
+            });
         });
-
-        $(".jPaginateNext").on("click", function() {
-        var list = $(".pagination").find("li");
-        $.each(list, function(position, element) {
-            if ($(element).is(".active")) {
-            $(list[position + 1]).trigger("click");
-            }
-        });
-        });
-
-        $(".jPaginateBack").on("click", function() {
-        var list = $(".pagination").find("li");
-        $.each(list, function(position, element) {
-            if ($(element).is(".active")) {
-            $(list[position - 1]).trigger("click");
-            }
-        });
-        });
-
-        $('#tags-filter').change(function () {
-            var selection = this.value;
-            if (selection) {
-                userList.filter(function(item) {
-                    console.log(item)
-                    return (item.values().tags.indexOf(selection) >= 0);
-                });
-            } else {
-                userList.filter();
-            }
-        });
-
-        $('#brand-filter').change(function () {
-            var selection = this.value;
-            if (selection) {
-                userList.filter(function(item) {
-                    return (item.values().brand == selection);
-                });
-            } else {
-                userList.filter();
-            }
-        });
-
-        $('.mobFilter').click(function() {
-        $('.porpSection').addClass('activeMob');
-        $('body').addClass('filterActive')
-            
-        });
-
-        $('.xbutton').click(function(){
-        $('.porpSection').removeClass('activeMob');
-        $('body').removeClass('filterActive')
-        });
-
-        $('.selectlist').change(function(){
-            $('.porpSection').removeClass('activeMob');
-            $('body').removeClass('filterActive')           
-        });
-        console.log(urlBrand)
-        console.log(urlCategory)
-        if(urlCategory!=null)
-        {
-            document.getElementById('tags-filter').value = urlCategory;
-            $('#tags-filter').change();
-        }
-        if(urlBrand!=null)
-        {
-            document.getElementById('brand-filter').value = urlBrand;
-            $('#brand-filter').change();
-        }
     });
     function myFunction() {
         var brand, p, input, filter, a, txtValue;
