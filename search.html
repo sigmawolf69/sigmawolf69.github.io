@@ -87,6 +87,25 @@
     <script src="./lib/viblast.js"></script>
 
     <style>
+        #myBtn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            z-index: 99;
+            font-size: 18px;
+            border: none;
+            outline: none;
+            background-color: red;
+            color: white;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+            #myBtn:hover {
+                background-color: #555;
+            }
         .banner {
             top: 0;
             left: 0;
@@ -1934,25 +1953,6 @@
         Customize https://plyr.io
     
         */
-        #myBtn {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 30px;
-            z-index: 99;
-            font-size: 18px;
-            border: none;
-            outline: none;
-            background-color: red;
-            color: white;
-            cursor: pointer;
-            padding: 15px;
-            border-radius: 4px;
-        }
-
-            #myBtn:hover {
-                background-color: #555;
-            }
     </style>
 </head>
 
@@ -1964,7 +1964,6 @@
             <div class="row">
                 <div class="col-6" style="background-color:#070708; text-align:left;">
                     <a href="index.html" class="nav-link"><img title="s" src="./favicon.ico" height="40px" width="40px"/> </a>
-
                 </div>
                 <div class="col-6" style="background-color:#070708; text-align:right;">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -2018,13 +2017,32 @@
                                         <div class="overlay tableOverlay" style="display:none">
                                             <i class="fas fa-2x fa-sync-alt fa-spin"></i>
                                         </div>
-                                        <h2 style="text-align:center"><a href="random.html" class="nav-link ">Random </a></h2>
+                                        <h2 style="text-align:center">Search</h2>
                         
-                                        <div class="row " id="randomMain">
-                                            
-                                        </div>
-                                        <h2 style="text-align:center"><a href="random.html" class="nav-link ">Random </a></h2>
+                                        <form>
+                                            <div class="row"style="text-align:center">
+                                                <input id="searchText" type="text" placeholder="search">
+                                                <!-- <label>Search by:
+                                                        <select id="searchField">
+                                                            <option value="name">Name</option>
+                                                            <option value="city">City</option>
+                                                        </select>
+                                                </label>
+                                                <div class="button-group">
+                                                    <label>Sort by:</label>
+                                                        <a class="button sort" data-filter="name">Name</a>
+                                                        <a class="button sort" data-filter="city">City</a>
+                                                </div> -->
+                                            </div>
+                                            <div id="searchMain">
 
+                                            </div>
+                                            <!-- 	<div class="row">
+                                            <div class="medium-6 columns">
+                                              <button id="search" type="button" class="button expanded">Search</button>
+                                            </div>
+                                          </div> -->
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -2088,19 +2106,52 @@
 		src="https://a.pemsrv.com/fp-interstitial.js"></script>
 <script>
     $(document).ready(function () {
-        const shuffledVideos = videos.sort(() => 0.5 - Math.random());
-        let selectedShuffledVideos = shuffledVideos.slice(shuffledVideos.length - 18,shuffledVideos.length);
-            
-        $.each(selectedShuffledVideos, function (key, video) {
-            $("#randomMain").append(`<div class="col-lg-2 col-md-2 col-sm-6 col-6" id="Brand-${key}">
+        $("#searchMain").html("")
+        var videosLatest = videos.slice(videos.length - 18,videos.length);
+        videosLatest = videosLatest.reverse()
+        $.each(videosLatest, function (key, video) {
+                $("#searchMain").append(`<div class="col-lg-2 col-md-2 col-sm-6 col-6" id="Brand-${key}">
                                             <figure class="snip1466">
                                                 <img src=${video.cover_url} alt="sample52" />
                                                 <a href="video.html?id=${video.id}" class="nav-link " style="padding-top:30px; "></a>
                                                 <p style="font-size:large" id="BrandSpan-${key}"><span>${video.name}</span></p>
                                             </figure>
                                         </div>`);
-        })
+            });
+        $("#searchText, #searchField").on("change paste keyup", function() {
+            $("#searchMain").html("")
+            var searchText = $("#searchText").val().toLowerCase();
+            let searchVideos = videos.filter(({name}) => name.includes(searchText)); 
+            var videosSearchFiltered = searchVideos.slice(searchVideos.length - 18,searchVideos.length);
+            videosSearchFiltered = videosSearchFiltered.reverse()
+            console.log(videosSearchFiltered)
+            $.each(videosSearchFiltered, function (key, video) {
+                $("#searchMain").append(`<div class="col-lg-2 col-md-2 col-sm-6 col-6" id="Brand-${key}">
+                                            <figure class="snip1466">
+                                                <img src=${video.cover_url} alt="sample52" />
+                                                <a href="video.html?id=${video.id}" class="nav-link " style="padding-top:30px; "></a>
+                                                <p style="font-size:large" id="BrandSpan-${key}"><span>${video.name}</span></p>
+                                            </figure>
+                                        </div>`);
+            });
+        });
     });
+    function myFunction() {
+        var brand, p, input, filter, a, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        // var aaa = $(`#BrandSpan-0 span`).html()
+        console.log("s")
+        for (i = 0; i < brands.Count; i++) {
+            a = $(`#BrandSpan-${i} span`).html()
+            // txtValue = a.textContent || a.innerText;
+            if (a.toUpperCase().indexOf(filter) != -1) {
+                $(`#Brand-${i}`).css("display", "");
+            } else {
+                $(`#Brand-${i}`).css("display", "none");
+            }
+        }
+    }
     var currentUrl = window.location.hash.substr(1);
     //alert(currentUrl);
     if (currentUrl !== "") {
