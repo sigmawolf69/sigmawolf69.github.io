@@ -174,9 +174,7 @@
                                         <br/>
                                         <div>
                                             <h2 style="text-align:left">
-                                                <a asp-controller="Video" asp-action="VideoOfTheDay" class="">
-                                                    Peak of the day <i class="fa-solid fa-circle-arrow-right"></i>
-                                                </a>
+                                                Peak of the day <i class="fa-solid fa-circle-arrow-right"></i>
                                             </h2>
                                             <div class="" id="peakOfTheDay" style="width:auto; height:auto; color:white">
                                                 
@@ -186,9 +184,7 @@
                         
                                         <div>
                                             <h2 style="text-align:left">
-                                                <a asp-controller="Video" asp-action="Search" class="">
-                                                    Latest <i class="fa-solid fa-circle-arrow-right"></i>
-                                                </a>
+                                                <a href="search.html" class="nav-link ">Latest <i class="fa-solid fa-circle-arrow-right"></i> </a>
                                             </h2>
                         
                                             <h2 style="text-align:left"></h2>
@@ -198,9 +194,7 @@
 
                                         <div>
                                             <h2 style="text-align:left">
-                                                <a asp-controller="Video" asp-action="Search" class="">
-                                                    Trending <i class="fa-solid fa-circle-arrow-right"></i>
-                                                </a>
+                                                <a href="search.html" class="nav-link ">Trending <i class="fa-solid fa-circle-arrow-right"></i> </a>
                                             </h2>
                         
                                             <h2 style="text-align:left"></h2>
@@ -210,9 +204,7 @@
 
                                         <div>
                                             <h2 style="text-align:left">
-                                                <a asp-controller="Video" asp-action="Search" class="">
-                                                    Categories <i class="fa-solid fa-circle-arrow-right"></i>
-                                                </a>
+                                                <a href="categories.html" class="nav-link ">Categories <i class="fa-solid fa-circle-arrow-right"></i> </a>
                                             </h2>
                         
                                             <h2 style="text-align:left"></h2>
@@ -222,9 +214,7 @@
 
                                         <div>
                                             <h2 style="text-align:left">
-                                                <a asp-controller="Video" asp-action="Search" class="">
-                                                    Random <i class="fa-solid fa-circle-arrow-right"></i>
-                                                </a>
+                                                <a href="random.html" class="nav-link ">Random <i class="fa-solid fa-circle-arrow-right"></i> </a>
                                             </h2>
                         
                                             <h2 style="text-align:left"></h2>
@@ -234,9 +224,7 @@
 
                                         <div>
                                             <h2 style="text-align:left">
-                                                <a asp-controller="Video" asp-action="Search" class="">
-                                                    Brands <i class="fa-solid fa-circle-arrow-right"></i>
-                                                </a>
+                                                <a href="brands.html" class="nav-link ">Brands <i class="fa-solid fa-circle-arrow-right"></i> </a>
                                             </h2>
                         
                                             <h2 style="text-align:left"></h2>
@@ -290,7 +278,7 @@
                                                             <div class="col-lg-5 col-md-5 col-sm-12" style="padding-top:3%;text-align:center;">
                                                             </div>
                                                             <div class="col-lg-2 col-md-2 col-sm-12" style="padding-top:3%;text-align:center;">
-                                                                <h3 style="font-weight:800; opacity:0.8" id="mainH3BrandName"><a href="${peakOfTheDayVideo.brand}" class="nav-link " style="padding-top:30px;"><i>${peakOfTheDayVideo.brand} 's</i></a></h3>
+                                                                <h3 style="font-weight:800; opacity:0.8" id="mainH3BrandName"><a href="search.html?tag=${peakOfTheDayVideo.brand}" class="nav-link " style="padding-top:30px;"><i>${peakOfTheDayVideo.brand} 's</i></a></h3>
                                                             </div>
                                                             <div class="col-lg-5 col-md-5 col-sm-12" style="padding-top:3%;text-align:center;">
                                                             </div>
@@ -329,7 +317,7 @@
                                                 </div>`);
 
             $.each(peakOfTheDayVideo.tags, function (key, tag) {
-                $("#mainReleaseMainCategories").append(`<a id="mainVideoViewsCategory" style="color:#BD421B;" href="Video/Search?category=category.Name" class="">${tag}</a> `);
+                $("#mainReleaseMainCategories").append(`<a id="mainVideoViewsCategory" style="color:#BD421B;" href="search.html?tag=${tag}" class="">${tag}</a> `);
             })
 
             //Latest
