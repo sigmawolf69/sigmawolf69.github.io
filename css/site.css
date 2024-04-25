@@ -1,9 +1,11 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600);
+
 body {
     /*font-family: Arial, Helvetica, sans-serif;*/
-    font-family: /*'Roboto',*/,'Flow Circular', 'Ysabeau SC', sans-serif;
+    font-family: 'Open Sans', 'Roboto', 'Ysabeau SC', sans-serif;
 }
 
 
