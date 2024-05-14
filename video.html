@@ -44,7 +44,7 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js" integrity="sha256-5oApc/wMda1ntIEK4qoWJ4YItnV4fBHMwywunj8gPqc=" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght100&family=Ysabeau+SC:wght300&display=swap" rel="stylesheet">
@@ -2009,11 +2009,54 @@
             <!-- Main content -->
             <div class="content">
                 <div class="container-fluid">
-                    <main id="mainContentArea">
+                    <main id="mainContentArea" style="padding-top:0%; background-color: #121212;">
 
 
 
                         <div class="row" id="videoInfoMain">
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-12 " style="padding:0%; background-color: #121212;">
+                        
+                            <ul class="tabs">
+                                <li class="active" data-id="0">Featured</li>
+                                <li data-id="1">Latest</li>
+                                <li data-id="2">Random</li>
+                                <li data-id="3">Same Brand</li>
+                            </ul>
+                        
+                            <div class="contents">
+                                <div class="box show" data-content="0">
+                                    <div class="row">
+                                        <div class="row " id="featuredMain">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box hide" data-content="1">
+                                    <div class="row">
+                                        
+                                        <div class="row " id="latestMain">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box hide" data-content="2">
+                                    <div class="row">
+                                        <div class="row " id="randomMain">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box hide" data-content="3">
+                                    <div class="row">
+                                        
+                                        <div class="row " id="sameBrandMain">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                                 
                         <div>
@@ -2091,11 +2134,32 @@
             let menu = document.querySelector('#menu-icon');
             let navList = document.querySelector('.nav-list');
             
+            const tabs = document.querySelectorAll('[data-id]');
+            const contents = document.querySelectorAll('[data-content]');
+            let id = 0;
+
+            tabs.forEach(function (tab) {
+                tab.addEventListener('click', function () {
+                    tabs[id].classList.remove('active');
+                    tab.classList.add('active');
+                    id = tab.getAttribute('data-id');
+                    contents.forEach(function (box) {
+                        box.classList.add('hide');
+                        if (box.getAttribute('data-content') == id) {
+                            box.classList.remove('hide');
+                            box.classList.add('show');
+                        }
+                    });
+                });
+            });
+
             var urlId = new URLSearchParams(window.location.search).get("id");
 
             let finalData = videos[urlId];
             console.log(finalData)
-
+            const random = Math.floor(Math.random() * (10 - 6.5 + 0.1)/0.1) * 0.1 + 6.5;
+            const momentTimestamp = moment(finalData.releasedDate);
+            const stringDate = moment().format("MMM YYYY")
             $("#videoInfoMain").html(`
             <div class="col-lg-12 ">
                                 <div class="card" style="width:auto; height:auto;background-color:#101010;border-radius:10px; padding:10px">
@@ -2103,12 +2167,13 @@
                                         <div class="col-lg-7 col-md-7 col-sm-12 col-12 setMinHeight" id="videoDiv">
                                             
                                         </div>
-                        
+                                        <div class="col-lg-2 col-md-2 col-sm-12 col-12" style="padding:0%;">
+                                        </div>
                                         <div class="col-lg-3 col-md-3 col-sm-12 col-12 setMinHeight" style="padding:1%;">
                                             <div class="row">
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-12" style="text-align:center;">
                                                     <h3 style="font-weight:800; opacity:0.8"><i>
-                                                            <a style="color:#FFFFFF;" href="search.html?brand=${finalData.brand}" class=" btnTag btn-1 hover-filled-slide-right">${finalData.brand} 's</a>
+                                                            <a style="color:#FFFFFF;; color:#C6700C" href="search.html?brand=${finalData.brand}" class=" btnTag btn-1 hover-filled-slide-right">${finalData.brand} 's</a>
                                                         </i>
                                                     </h3>
                         
@@ -2118,17 +2183,11 @@
                                                 </div>
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                                                     <div class="row">
-                                                        <div class="col-lg-3 col-md-3 col-sm-3 col-3">
-                                                            <a class="nav-link " id="upVote" style="text-align:left; font-size:30px; padding-top:30px; color:#EA2E2E"><i class="fa-regular fa-thumbs-up"></i></a>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-3 col-sm-3 col-3">
-                                                            <a class="nav-link " id="downVote" style="text-align:right; font-size:30px; padding-top:30px; color:#EA2E2E"><i class="fa-regular fa-thumbs-down"></i></a>
-                                                        </div>
                                                         <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                                            <div style="text-align:right; font-size:30px; color:#EA2E2E"><i class="fa-solid fa-star"></i> 7.8 </div>
+                                                            <div style="text-align:left; font-size:30px; color:#C6700C"><i class="fa-solid fa-star"></i> ${random}</div>
                                                         </div>
                                                     </div>
-                                                    <div><i class="fa-regular fa-calendar"></i> ${finalData.releasedDate}</div>
+                                                    <div><i class="fa-regular fa-calendar"></i> ${stringDate}</div>
                                                     <div id="tags">
                                                         <b>
                                                             <i class="fa-solid fa-tags"></i>
@@ -2148,7 +2207,7 @@
                             </div>
             `);
             $.each(finalData.tags, function (key, tag) {
-                $("#tags").append(`<a style="color:#BD421B;" href="search.html?tag=${tag}" class=" btnTag btn-1 hover-filled-slide-right">${tag}</a> `);
+                $("#tags").append(`<a style="color:#C6700C;" href="search.html?tag=${tag}" class=" btnTag btn-1 hover-filled-slide-right">${tag}</a> `);
             })
             $("#videoDiv").html(`<div style="padding:1%;" class="banner">
                                                 
@@ -2166,7 +2225,69 @@
                                                        data-viblast-key="N8FjNTQ3NDdhZqZhNGI5NWU5ZTI=">
                                                     <source src="https://r2.1hanime.com/${finalData.link}.mp4">
                                                 </video></div>`);
-        });
+        
+        
+            var videosLatestFiltered = videos.slice(videos.length - 18,videos.length);
+            videosLatestFiltered = videosLatestFiltered.reverse()
+
+            $.each(videosLatestFiltered, function (key, video) {
+            $("#latestMain").append(`<div class="col-lg-3 col-md-3 col-sm-6 col-6" id="Brand-${key}">
+                                            <figure class="snip1466">
+                                                <img src=${video.cover_url} alt="sample52" />
+                                                <a href="video.html?id=${video.id}" class="nav-link " style="padding-top:30px; "></a>
+                                                <p style="font-size:medium; font-weight: 900;" id="BrandSpan-${key}"><span>${video.name}</span></p>
+                                                <p style="font-size:small; font-weight: 500;" id="BrandSpan-${key}"><span>${video.brand}</span></p>
+                                            </figure>
+                                        </div>`);
+            })
+
+            const shuffledVideos = videos.sort(() => 0.5 - Math.random());
+            let selectedShuffledVideos = shuffledVideos.slice(shuffledVideos.length - 18,shuffledVideos.length);
+
+            $.each(selectedShuffledVideos, function (key, video) {
+            $("#randomMain").append(`<div class="col-lg-3 col-md-3 col-sm-6 col-6" id="Brand-${key}">
+                                            <figure class="snip1466">
+                                                <img src=${video.cover_url} alt="sample52" />
+                                                <a href="video.html?id=${video.id}" class="nav-link " style="padding-top:30px; "></a>
+                                                <p style="font-size:large; font-weight: 900;" id="BrandSpan-${key}"><span>${video.name}</span></p>
+                                                <p style="font-size:small; font-weight: 500;" id="BrandSpan-${key}"><span>${video.brand}</span></p>
+                                            </figure>
+                                        </div>`);
+            })
+
+            let peakOfTheDayVideos = videos.filter(({brand}) => brand == "Antechinus" || brand == "Bunnywalker" 
+            || brand ==  "Collaboration Works"  || brand ==  "Edge"  || brand ==  "Lune Pictures"  
+            || brand ==  "MS Pictures"  || brand ==  "Pink Pineapple"  || brand == "T-Rex"   || brand ==  "PoRO"   
+            || brand ==  "nur");
+
+            let selectedTrending = peakOfTheDayVideos.slice(peakOfTheDayVideos.length - 18,peakOfTheDayVideos.length);
+            selectedTrending = selectedTrending.reverse()
+
+            $.each(selectedTrending, function (key, video) {
+            $("#featuredMain").append(`<div class="col-lg-3 col-md-3 col-sm-6 col-6" id="Brand-${key}">
+                                            <figure class="snip1466">
+                                                <img src=${video.cover_url} alt="sample52" />
+                                                <a href="video.html?id=${video.id}" class="nav-link " style="padding-top:30px; "></a>
+                                                <p style="font-size:small; font-weight: 900;" id="BrandSpan-${key}"><span>${video.name}</span></p>
+                                                <p style="font-size:small; font-weight: 500;" id="BrandSpan-${key}"><span>${video.brand}</span></p>
+                                            </figure>
+                                        </div>`);
+            })
+
+            let sameBrandVideos = videos.filter(({brand}) => brand == finalData.brand);
+            let selectedSameBrandVideos = sameBrandVideos.slice(sameBrandVideos.length - 18,sameBrandVideos.length);
+
+            $.each(selectedSameBrandVideos, function (key, video) {
+            $("#sameBrandMain").append(`<div class="col-lg-3 col-md-3 col-sm-6 col-6" id="Brand-${key}">
+                                            <figure class="snip1466">
+                                                <img src=${video.cover_url} alt="sample52" />
+                                                <a href="video.html?id=${video.id}" class="nav-link " style="padding-top:30px; "></a>
+                                                <p style="font-size:medium; font-weight: 900;" id="BrandSpan-${key}"><span>${video.name}</span></p>
+                                                <p style="font-size:small; font-weight: 500;" id="BrandSpan-${key}"><span>${video.brand}</span></p>
+                                            </figure>
+                                        </div>`);
+            })
+        })
 
         var currentUrl = window.location.hash.substr(1);
         //alert(currentUrl);

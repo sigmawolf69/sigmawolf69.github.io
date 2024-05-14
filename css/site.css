@@ -328,7 +328,7 @@ figure.snip1466 {
     box-sizing: border-box;
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
-    text-align: center;
+    text-align: left;
     font-size: 70px;
 }
 
@@ -337,6 +337,7 @@ figure.snip1466 *:before,
 figure.snip1466 *:after {
     -webkit-transition: all 0.4s ease;
     transition: all 0.4s ease;
+
 }
 
     figure.snip1466 img {
@@ -350,7 +351,7 @@ figure.snip1466 i {
     position: absolute;
     line-height: 50px;
     width: 50px;
-    text-align: center;
+    text-align: left;
     font-size: 28px;
     z-index: 1;
     bottom: 0;
@@ -380,10 +381,14 @@ figure.snip1466 i {
 a {
     /*border: solid;*/
     background-color: transparent;
-    color: #A04034;
+    color: #C6700C; 
+    /* A04034 */
 }
     a:hover {
-        color: #A04034;
+        color: #C6700C;
+        /* filter: alpha(opacity=90);
+        background-color: #1A1A1A; */
+
     }
 
     figure.snip1466:hover img,
@@ -408,12 +413,18 @@ figure.snip1466.hover i {
         padding: 1%;
         padding-top: 4%;
     }
+    #greetings{
+        padding-top:3%;
+    }
 }
 
 @media screen and (max-width: 1080px) {
     .Main {
         padding: 1%;
         padding-top: 4%;
+    }
+    #greetings{
+        padding-top:3%;
     }
 }
 
@@ -422,11 +433,17 @@ figure.snip1466.hover i {
         padding: 1%;
         padding-top: 4%;
     }
+    #greetings{
+        padding-top:15%;
+    }
 }
 
 @media screen and (max-width: 540px) {
     .Main {
         padding: 20% 5% 5% 5%;
+    }
+    #greetings{
+        padding-top:15%;
     }
 }
 
@@ -439,8 +456,9 @@ ul {
     /* height: 100px; */
     margin: auto;
     margin-top: 20px;
+    font-size: 20px;
     display: flex;
-    align-items: center;
+    align-items: center;    
     overflow: hidden;
     border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -466,21 +484,21 @@ ul {
     }
 
         .tabs li:hover {
-            color: #f9004d;
+            color: #C6700C;
             position: relative;
             z-index: 1;
             border-radius: 10px;
         }
 
 .active {
-    color: #f9004d !important;
+    color: #C6700C !important;
     position: relative;
     z-index: 1;
     border-radius: 10px;
 }
 
 .contents {
-    width: 80%;
+    width: 90%;
     margin: auto;
     margin-top: 50px;
     display: flex;
@@ -503,7 +521,7 @@ ul {
 }
 
     .box img {
-        width: 50%;
+        width: 100%;
         border-radius: 10px;
         -webkit-border-radius: 10px;
         -moz-border-radius: 10px;

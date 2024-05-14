@@ -53,7 +53,7 @@
     <script type="text/javascript"
             src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL,Math.trunc">
     </script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js" integrity="sha256-5oApc/wMda1ntIEK4qoWJ4YItnV4fBHMwywunj8gPqc=" crossorigin="anonymous"></script>
     <script type="text/javascript"
             src="https://cdn.plyr.io/3.5.2/plyr.js">
     </script>
@@ -187,9 +187,17 @@
                                         <br />
                         
                                         <div>
-                                            <h2 style="text-align:left">
-                                                <a href="search.html" class="nav-link ">Latest <i class="fa-solid fa-circle-arrow-right"></i> </a>
-                                            </h2>
+                                            <div class="row" >
+                                                <div class="col-sm-12 col-md-2">
+                                                    <h2 style="text-align:left">
+                                                        <a href="search.html" class="nav-link ">Latest <i class="fa-solid fa-circle-arrow-right"></i> </a>
+                                                    </h2>
+                                                </div>
+                                                <div class="col-sm-12 col-md-5">
+                                                </div>
+                                                <div class="col-sm-12 col-md-5">
+                                                </div>
+                                            </div>
                         
                                             <h2 style="text-align:left"></h2>
                                             <div class="col-md-12 " style="padding: 3%;" id="LatestVideosData">
@@ -197,9 +205,17 @@
                                         </div>
 
                                         <div>
-                                            <h2 style="text-align:left">
-                                                <a href="search.html" class="nav-link ">Trending <i class="fa-solid fa-circle-arrow-right"></i> </a>
-                                            </h2>
+                                            <div class="row" >
+                                                <div class="col-sm-12 col-md-2">
+                                                    <h2 style="text-align:left">
+                                                        <a href="search.html" class="nav-link ">Trending <i class="fa-solid fa-circle-arrow-right"></i> </a>
+                                                    </h2>
+                                                </div>
+                                                <div class="col-sm-12 col-md-5">
+                                                </div>
+                                                <div class="col-sm-12 col-md-5">
+                                                </div>
+                                            </div>
                         
                                             <h2 style="text-align:left"></h2>
                                             <div class="col-md-12 " style="padding: 3%;" id="TrendingVideosData">
@@ -208,9 +224,17 @@
 
 
                                         <div>
-                                            <h2 style="text-align:left">
-                                                <a href="random.html" class="nav-link ">Random <i class="fa-solid fa-circle-arrow-right"></i> </a>
-                                            </h2>
+                                            <div class="row" >
+                                                <div class="col-sm-12 col-md-2">
+                                                    <h2 style="text-align:left">
+                                                        <a href="random.html" class="nav-link ">Random <i class="fa-solid fa-circle-arrow-right"></i> </a>
+                                                    </h2>
+                                                </div>
+                                                <div class="col-sm-12 col-md-5">
+                                                </div>
+                                                <div class="col-sm-12 col-md-5">
+                                                </div>
+                                            </div>
                         
                                             <h2 style="text-align:left"></h2>
                                             <div class="col-md-12 " style="padding: 3%;" id="RandomVideosData">
@@ -230,10 +254,17 @@
                                         </div>
 
                                         <div>
-                                            <h2 style="text-align:left">
-                                                <a href="categories.html" class="nav-link ">Categories <i class="fa-solid fa-circle-arrow-right"></i> </a>
-                                            </h2>
-                        
+                                            <div class="row" >
+                                                <div class="col-sm-12 col-md-2">
+                                                    <h2 style="text-align:left">
+                                                        <a href="categories.html" class="nav-link ">Categories <i class="fa-solid fa-circle-arrow-right"></i> </a>
+                                                    </h2>
+                                                </div>
+                                                <div class="col-sm-12 col-md-5">
+                                                </div>
+                                                <div class="col-sm-12 col-md-5">
+                                                </div>
+                                            </div>
                                             <h2 style="text-align:left"></h2>
                                             <div class="col-md-12 " style="padding: 3%;" id="TagsData">
                                             </div>
@@ -252,8 +283,18 @@
                                         </div>
 
                                         <div>
+                                            <div class="row" >
+                                                <div class="col-sm-12 col-md-2">
+                                                    <h2 style="text-align:left">
+                                                        <a href="brands.html" class="nav-link ">Brands <i class="fa-solid fa-circle-arrow-right"></i> </a>
+                                                    </h2>
+                                                </div>
+                                                <div class="col-sm-12 col-md-5">
+                                                </div>
+                                                <div class="col-sm-12 col-md-5">
+                                                </div>
+                                            </div>
                                             <h2 style="text-align:left">
-                                                <a href="brands.html" class="nav-link ">Brands <i class="fa-solid fa-circle-arrow-right"></i> </a>
                                             </h2>
                         
                                             <h2 style="text-align:left"></h2>
@@ -359,6 +400,9 @@
             || brand ==  "MS Pictures"  || brand ==  "Pink Pineapple"  || brand == "T-Rex"   || brand ==  "PoRO"   
             || brand ==  "nur");
             let peakOfTheDayVideo = peakOfTheDayVideos[Math.floor(Math.random() * (peakOfTheDayVideos.length - 0) + 0)]
+            
+            const momentTimestamp = moment(peakOfTheDayVideo.releasedDate);
+            const stringDate = moment().format("MMM YYYY")
             $("#peakOfTheDay").html(`<div class="row">
                                                     <div class="col-lg-12 col-md-12 col-sm-12 col-12 backgroundImage" style="border-radius:10px; background-image:linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5) ),url('${peakOfTheDayVideo.poster_url}');background-repeat:no-repeat;">
                                                         <div class="row">
@@ -379,7 +423,7 @@
                                                                     ${peakOfTheDayVideo.description}
                                                                 </div>
                         
-                                                                <div id="mainReleaseMain"><i class="fa-regular fa-calendar"></i> ${peakOfTheDayVideo.releasedDate}</div>
+                                                                <div id="mainReleaseMain"><i class="fa-regular fa-calendar"></i> ${stringDate}</div>
                                                                 <div>
                                                                     <b>
                                                                         <i class="fa-solid fa-tags"></i>
@@ -404,7 +448,7 @@
                                                 </div>`);
 
             $.each(peakOfTheDayVideo.tags, function (key, tag) {
-                $("#mainReleaseMainCategories").append(`<a id="mainVideoViewsCategory" style="color:#BD421B;" href="search.html?tag=${tag}" class="">${tag}</a> `);
+                $("#mainReleaseMainCategories").append(`<a id="mainVideoViewsCategory" style="color:#C6700C;" href="search.html?tag=${tag}" class="">${tag}</a> `);
             })
 
             //Latest
@@ -417,7 +461,8 @@
                 $("#Main-carousel").append(`<figure class="snip1466">
                                                             <img src=${video.cover_url} alt="sample52" />
                                                             <a href="video.html?id=${video.id}" class="nav-link " style="padding-top:30px;"></a>
-                                                            <p style="font-size:large"> <span>${video.name}</span></p>
+                                                            <p style="font-size:large; font-weight: 900;"> <span>${video.name}</span></p>
+                                                            <p style="font-size:small; font-weight: 500;"> <span>${video.brand}</span></p>
                                                         </figure>`);
             })
 
@@ -432,7 +477,8 @@
                 $("#Trending-carousel").append(`<figure class="snip1466">
                                                             <img src=${video.cover_url} alt="sample52" />
                                                             <a href="video.html?id=${video.id}" class="nav-link " style="padding-top:30px;"></a>
-                                                            <p style="font-size:large"> <span>${video.name}</span></p>
+                                                            <p style="font-size:large; font-weight: 900;"> <span>${video.name}</span></p>
+                                                            <p style="font-size:small; font-weight: 500;"> <span>${video.brand}</span></p>
                                                         </figure>`);
             })
 
@@ -447,7 +493,7 @@
                 $("#Tags-carousel").append(`<figure class="snip1466">
                                                             <img src=${tag.PhotoLink} alt="sample52" />
                                                             <a href="search.html?tag=${tag.Name}" class="nav-link " style="padding-top:30px;"></a>
-                                                            <p style="font-size:large"> <span>${tag.Name}</span></p>
+                                                            <p style="font-size:large; font-weight: 900;"> <span>${tag.Name}</span></p>
                                                         </figure>`);
             })
 
@@ -461,7 +507,8 @@
                 $("#Random-carousel").append(`<figure class="snip1466">
                                                             <img src=${video.cover_url} alt="sample52" />
                                                             <a href="video.html?id=${video.id}" class="nav-link " style="padding-top:30px;"></a>
-                                                            <p style="font-size:large"> <span>${video.name}</span></p>
+                                                            <p style="font-size:large; font-weight: 900;"> <span>${video.name}</span></p>
+                                                            <p style="font-size:small; font-weight: 500;"> <span>${video.brand}</span></p>
                                                         </figure>`);
             })
 
@@ -476,7 +523,7 @@
                 $("#Brands-carousel").append(`<figure class="snip1466">
                                                             <img src=${brand.PhotoLink} alt="sample52" />
                                                             <a href="search.html?brand=${brand.Name}" class="nav-link " style="padding-top:30px;"></a>
-                                                            <p style="font-size:large"> <span>${brand.Name}</span></p>
+                                                            <p style="font-size:large; font-weight: 900;"> <span>${brand.Name}</span></p>
                                                         </figure>`);
             })
 
