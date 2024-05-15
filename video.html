@@ -43,7 +43,6 @@
     <link rel="stylesheet" href="./css/adminlte.min.css">
     <link rel="stylesheet" href="./plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="./css/site.css">
     
     <link rel="stylesheet" href="https://cdn.plyr.io/3.5.2/plyr.css" />
     
@@ -66,6 +65,8 @@
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/0.5.14/hls.min.js">
     </script>
+    <script type="text/javascript" src="./js/site.js"></script>
+
     <!-- Video.js IMA plugin -->
     <script type="text/javascript" src="./plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="./js/adminlte.js"></script>
@@ -73,7 +74,6 @@
     <script src="https://kit.fontawesome.com/b371dd7d3f.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js" integrity="sha512-yFjZbTYRCJodnuyGlsKamNE/LlEaEAxSUDe5+u61mV8zzqJVFOH7TnULE2/PP/l5vKWpUNnF4VGVkXh3MjgLsg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    <script type="text/javascript" src="./js/site.js"></script>
     <script type="text/javascript" src="./js/video.js"></script>
 
     <script src="https://imasdk.googleapis.com/js/sdkloader/ima3_debug.js"></script>
@@ -86,7 +86,8 @@
 	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Questrial">
 
-    <script src="https://cdn.rawgit.com/MailOnline/videojs-vast-vpaid/master/bin/videojs_5.vast.vpaid.min.js"></script>
+    <link rel="stylesheet" href="./css/site.css">
+    <!-- <script src="https://cdn.rawgit.com/MailOnline/videojs-vast-vpaid/master/bin/videojs_5.vast.vpaid.min.js"></script> -->
     <!-- <script src="https://cdn.viblast.com/vb/stable/viblast.js"></script> -->
     <script src="./lib/viblast.js"></script>
 
@@ -101,25 +102,6 @@
         Customize https://plyr.io
     
         */
-        #myBtn {
-            display: none;
-            position: fixed;
-            bottom: 20px;
-            right: 30px;
-            z-index: 99;
-            font-size: 18px;
-            border: none;
-            outline: none;
-            background-color: red;
-            color: white;
-            cursor: pointer;
-            padding: 15px;
-            border-radius: 4px;
-        }
-
-            #myBtn:hover {
-                background-color: #555;
-            }
     </style>
 </head>
 
@@ -178,61 +160,11 @@
 
 
                         <div class="row" id="videoInfoMain">
+                            
                         </div>
 
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-12 " style="padding:0%; background-color: #121212;">
-                        
-                            <ul class="tabs">
-                                <li class="active" data-id="0">Featured</li>
-                                <li data-id="1">Latest</li>
-                                <li data-id="2">Random</li>
-                                <li data-id="3">Same Brand</li>
-                            </ul>
-                        
-                            <div class="contents">
-                                <div class="box show" data-content="0">
-                                    <div class="row">
-                                        <div class="row " id="featuredMain">
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="box hide" data-content="1">
-                                    <div class="row">
-                                        
-                                        <div class="row " id="latestMain">
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="box hide" data-content="2">
-                                    <div class="row">
-                                        <div class="row " id="randomMain">
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="box hide" data-content="3">
-                                    <div class="row">
-                                        
-                                        <div class="row " id="sameBrandMain">
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                                
-                        <div>
-                            <div class=" row">
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                    <ins class="eas6a97888e" data-zoneid="5108200"></ins>
-                        
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                    <ins class="eas6a97888e" data-zoneid="5108200"></ins>
-                                </div>
-                            </div>
+                        <div class="row" id="related">
+                            
                         </div>
 
 
@@ -259,7 +191,7 @@
 
 <script async type="application/javascript" src="https://a.magsrv.com/ad-provider.js"></script>
 <script>(AdProvider = window.AdProvider || []).push({ "serve": {} });</script>
-<ins class="eas6a97888e" data-zoneid="5108472"></ins>
+<!-- <ins class="eas6a97888e" data-zoneid="5108472"></ins> -->
 <script type="application/javascript">
 	(function() {
 
@@ -323,7 +255,8 @@
             console.log(finalData)
             const random = Math.floor(Math.random() * (10 - 6.5 + 0.1)/0.1) * 0.1 + 6.5;
             const momentTimestamp = moment(finalData.releasedDate);
-            const stringDate = moment().format("MMM YYYY")
+            const stringDate = momentTimestamp.format("MMM YYYY")
+            
             $("#videoInfoMain").html(`
             <div class="col-lg-12 ">
                                 <div class="card" style="width:auto; height:auto;background-color:#101010;border-radius:10px; padding:10px">
@@ -374,24 +307,64 @@
                 $("#tags").append(`<a style="color:#C6700C;" href="search.html?tag=${tag}" class=" btnTag btn-1 hover-filled-slide-right">${tag}</a> `);
             })
             // "aspectRatio":"640:267"
-            $("#videoDiv").html(`<div style="padding:0%;" class="banner">
-                                                
-                                            <video id="vid1" class="video-js vjs-fluid vjs-default-skin vjs-big-play-centered" controls poster="${finalData.poster_url}" playsinline
-                                                       data-setup='{ , "playbackRates": [1, 1.5, 2] ,
-                                                            "plugins": {
-                                                                    "vastClient": {
-                                                                    "adTagUrl": "https://s.magsrv.com/splash.php?idzone=5120470",
-                                                                    "adsCancelTimeout": 3000,
-                                                                    "adsEnabled": true,
-                                                                    "preferredTech":"html5",
-                                                                    "vpaidFlashLoaderPath": "https://github.com/MailOnline/videojs-vast-vpaid/blob/RELEASE/bin/VPAIDFlash.swf?raw=true"
-                                                                }
-                                                            }}'
-                                                       data-viblast-key="N8FjNTQ3NDdhZqZhNGI5NWU5ZTI=">
-                                                    <source src="https://r2.1hanime.com/${finalData.link}.mp4">
-                                                </video></div>`);
+            
+            $("#videoDiv").html(`<video id="vid1" class="video-js vjs-fluid" controls poster="${finalData.poster_url}" playsinline 
+                                                           data-setup='{ , "playbackRates": [1, 1.5, 2] ,
+                                                                "plugins": {
+                                                                        "vastClient": {
+                                                                        "adTagUrl": "https://s.magsrv.com/splash.php?idzone=5120470",
+                                                                        "adsCancelTimeout": 3000,
+                                                                        "adsEnabled": true,
+                                                                        "preferredTech":"html5",
+                                                                        "vpaidFlashLoaderPath": "https://github.com/MailOnline/videojs-vast-vpaid/blob/RELEASE/bin/VPAIDFlash.swf?raw=true"
+                                                                    }
+                                                                }}'
+                                                           data-viblast-key="N8FjNTQ3NDdhZqZhNGI5NWU5ZTI=">
+                                                        <source src="https://r2.1hanime.com/${finalData.link}.mp4" type="video/mp4">
+                                                    </video></div>`);
         
-        
+                                                    $("#related").html(`<div class="col-lg-12 col-md-12 col-sm-12 col-12 " style="padding:0%; background-color: #121212;">
+                            
+                            <ul class="tabs">
+                                <li class="active" data-id="0">Featured</li>
+                                <li data-id="1">Latest</li>
+                                <li data-id="2">Random</li>
+                                <li data-id="3">Same Brand</li>
+                            </ul>
+                        
+                            <div class="contents">
+                                <div class="box show" data-content="0">
+                                    <div class="row">
+                                        <div class="row " id="featuredMain">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box hide" data-content="1">
+                                    <div class="row">
+                                        
+                                        <div class="row " id="latestMain">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box hide" data-content="2">
+                                    <div class="row">
+                                        <div class="row " id="randomMain">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box hide" data-content="3">
+                                    <div class="row">
+                                        
+                                        <div class="row " id="sameBrandMain">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`);
             var videosLatestFiltered = videos.slice(videos.length - 18,videos.length);
             videosLatestFiltered = videosLatestFiltered.reverse()
 
@@ -452,6 +425,8 @@
                                             </figure>
                                         </div>`);
             })
+
+            
         })
 
         var currentUrl = window.location.hash.substr(1);
