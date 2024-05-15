@@ -455,7 +455,6 @@ ul {
     /* width: 80%; */
     /* height: 100px; */
     margin: auto;
-    margin-top: 20px;
     font-size: 20px;
     display: flex;
     align-items: center;    
@@ -474,7 +473,6 @@ ul {
         align-items: center;
         justify-content: center;
         color: #c4cfde;
-        font-family: 'Poppins', sans-serif;
         transition: .5s;
         -webkit-transition: .5s;
         -moz-transition: .5s;
