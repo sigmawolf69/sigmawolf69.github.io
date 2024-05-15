@@ -357,25 +357,10 @@
                                         </div>`);
             })
 
-            const shuffledVideos = videos.sort(() => 0.5 - Math.random());
-            let selectedShuffledVideos = shuffledVideos.slice(shuffledVideos.length - 18,shuffledVideos.length);
-
-            $.each(selectedShuffledVideos, function (key, video) {
-            $("#randomMain").append(`<div class="col-lg-3 col-md-3 col-sm-6 col-6" id="Brand-${key}">
-                                            <figure class="snip1466">
-                                                <img src=${video.cover_url} alt="sample52" />
-                                                <a href="video.html?id=${video.id}" class="nav-link " style="padding-top:30px; "></a>
-                                                <p style="font-size:large; font-weight: 900;" id="BrandSpan-${key}"><span>${video.name}</span></p>
-                                                <p style="font-size:small; font-weight: 500;" id="BrandSpan-${key}"><span>${video.brand}</span></p>
-                                            </figure>
-                                        </div>`);
-            })
-
             let peakOfTheDayVideos = videos.filter(({brand}) => brand == "Antechinus" || brand == "Bunnywalker" 
             || brand ==  "Collaboration Works"  || brand ==  "Edge"  || brand ==  "Lune Pictures"  
             || brand ==  "MS Pictures"  || brand ==  "Pink Pineapple"  || brand == "T-Rex"   || brand ==  "PoRO"   
             || brand ==  "nur");
-
             let selectedTrending = peakOfTheDayVideos.slice(peakOfTheDayVideos.length - 18,peakOfTheDayVideos.length);
             selectedTrending = selectedTrending.reverse()
 
@@ -385,6 +370,20 @@
                                                 <img src=${video.cover_url} alt="sample52" />
                                                 <a href="video.html?id=${video.id}" class="nav-link " style="padding-top:30px; "></a>
                                                 <p style="font-size:small; font-weight: 900;" id="BrandSpan-${key}"><span>${video.name}</span></p>
+                                                <p style="font-size:small; font-weight: 500;" id="BrandSpan-${key}"><span>${video.brand}</span></p>
+                                            </figure>
+                                        </div>`);
+            })
+
+            const shuffledVideos = videos.sort(() => 0.5 - Math.random());
+            let selectedShuffledVideos = shuffledVideos.slice(shuffledVideos.length - 18,shuffledVideos.length);
+
+            $.each(selectedShuffledVideos, function (key, video) {
+            $("#randomMain").append(`<div class="col-lg-3 col-md-3 col-sm-6 col-6" id="Brand-${key}">
+                                            <figure class="snip1466">
+                                                <img src=${video.cover_url} alt="sample52" />
+                                                <a href="video.html?id=${video.id}" class="nav-link " style="padding-top:30px; "></a>
+                                                <p style="font-size:large; font-weight: 900;" id="BrandSpan-${key}"><span>${video.name}</span></p>
                                                 <p style="font-size:small; font-weight: 500;" id="BrandSpan-${key}"><span>${video.brand}</span></p>
                                             </figure>
                                         </div>`);

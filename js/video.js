@@ -77505,7 +77505,7 @@ var videos = [
 		"id": 3068,
 		"idLink": "video.html?id=3068",
 		"name": "Fleur 1",
-		"link": "fleur-1",
+		"link": "fleur-the-animation-1",
 		"description": "<p>My editor is always so good to me... she takes care of me so well...</p>\n\n<p>I wonder if we could be more...</p>",
 		"poster_url": "https://akidoo.top/images/posters/fleur-1-pv1.png",
 		"cover_url": "https://akidoo.top/images/covers/fleur-1-cv1.png",
@@ -77986,5 +77986,180 @@ var videos = [
 			"big boobs"
 		],
 		"releasedDate": "2024-03-28T12:53:16"
+	},
+	{
+		"id": 3089,
+		"idLink": "video.html?id=3089",
+		"name": "Shunka Shuutou 2",
+		"link": "shunka-shuutou-2",
+		"description": "<p>She has been reduced to second hand goods... not even worth mentioning...</p>",
+		"poster_url": "https://akidoo.top/images/posters/shunka-shuutou-2-pv1.png",
+		"cover_url": "https://akidoo.top/images/covers/shunka-shuutou-2-cv1.png",
+		"brand": "nur",
+		"is_censored": true,
+		"tags": [
+			"teacher",
+			"school girl",
+			"rape",
+			"public sex",
+			"masturbation",
+			"hd",
+			"filmed",
+			"censored",
+			"blow job",
+			"big boobs"
+		],
+		"releasedDate": "2024-03-28T12:53:18"
+	},
+	{
+		"id": 3090,
+		"idLink": "video.html?id=3090",
+		"name": "Konomi ja Nai kedo 1",
+		"link": "konomi-ja-nai-kedo-mukatsuku-ane-to-aishou-batsugun-ecchi-1",
+		"description": "<p>The siblings fight each other every time they meet. They get along so poorly, that they even start fighting in front of each other's friends.</p>\n\n<p>One day, Ritsuki comes home in a hurry in the rain and bumps into Kyouya at the entrance. Ritsuki gets angry, but freezes when she sees Kyouya's shirtless and wet body. His body was muscular, which Ritsuki liked. When Ritsuki noticed that she was staring at Kyouya, she tried to quickly leave, but she bumped into Kyouya and sprained her leg.</p>\n\n<p>Kyouya enters Ritsuki's room with a compress and a bandage, and becomes conscious of the fact that he is of the opposite sex as he enters his sister's room for the first time in several years. Kyouya tries to shake off his thoughts and leave the room before things get complicated, but Ritsuki demands that he give her a massage. Kyouya reluctantly decides to comply with her request out of guilt for causing her injury, but he notices this while massaging her... That his sister's body is what he likes.</p>",
+		"poster_url": "https://akidoo.top/images/posters/konomi-ja-nai-kedo-1-pv1.png",
+		"cover_url": "https://akidoo.top/images/covers/konomi-ja-nai-kedo-1-cv1.png",
+		"brand": "Mary Jane",
+		"is_censored": true,
+		"tags": [
+			"school girl",
+			"plot",
+			"incest",
+			"hd",
+			"creampie",
+			"censored",
+			"big boobs"
+		],
+		"releasedDate": "2024-04-04T12:53:20"
+	},
+	{
+		"id": 3091,
+		"idLink": "video.html?id=3091",
+		"name": "Nocturnal 1",
+		"link": "nocturnal-1",
+		"description": "<p>She is a popular and good-looking classmate. She is a girl who is out of reach and whom he secretly has feelings for.</p>\n\n<p>While hanging out at night, he sees her arguing with some men. He pretends to be indifferent and tries to pass them by, but then decides to mediate. The two of them hold hands and run away from that place.</p>\n\n<p>Now something seems... different about her.</p>",
+		"poster_url": "https://akidoo.top/images/posters/nocturnal-1-pv1.png",
+		"cover_url": "https://akidoo.top/images/covers/nocturnal-1-cv1.png",
+		"brand": "Queen Bee",
+		"is_censored": true,
+		"tags": [
+			"school girl",
+			"plot",
+			"hd",
+			"hand job",
+			"creampie",
+			"censored",
+			"blow job"
+		],
+		"releasedDate": "2024-04-04T12:53:21"
+	},
+	{
+		"id": 3092,
+		"idLink": "video.html?id=3092",
+		"name": "Kateikyoushi x Saimin 2 - Episode 1",
+		"link": "katei-kyoushi-x-saimin-2-the-animation-1",
+		"description": "<p>Masato is harassed and abused by Shinjo sisters, two older women who work as his private tutors. Exhausted both physically and mentally by the two sisters, he receives help from Sakiko, the owner of a mysterious club called ‘Gentil Donna.’ That woman gives him a mind control device that he will use to take revenge on his teachers. First he controls Serina, and when he finishes sexually abusing her, he manipulates her to trap his next victim, her sister Haruna.</p>",
+		"poster_url": "https://akidoo.top/images/posters/kateikyoushi-x-saimin-2-episode-1-pv1.png",
+		"cover_url": "https://akidoo.top/images/covers/kateikyoushi-x-saimin-2-episode-1-cv1.png",
+		"brand": "White Bear",
+		"is_censored": true,
+		"tags": [
+			"x-ray",
+			"toys",
+			"rape",
+			"mind control",
+			"hd",
+			"creampie",
+			"censored",
+			"boob job",
+			"blow job",
+			"big boobs",
+			"anal"
+		],
+		"releasedDate": "2024-04-04T12:53:25"
+	},
+	{
+		"id": 3093,
+		"idLink": "video.html?id=3093",
+		"name": "JK Ikinari Doukyo? Micchaku!? Hatsu Ecchi!!? 3",
+		"link": "1ldk-+-jk-ikinari-doukyo-micchaku-hatsu-ecchi-3",
+		"description": "<p>A few days have passed since they started living together for a week due to a mistake in the landlord's contract.</p>\n\n<p>One day, he was worried that she was late coming home. Since she didn't answer the phone, he decided to go to her part-time job to pick her up. She was happy that he came to pick her up, but at the same time, she had mixed feelings about the end of their cohabitation in a few days...</p>",
+		"poster_url": "https://akidoo.top/images/posters/jk-ikinari-doukyo-micchaku-hatsu-ecchi-3-pv1.png",
+		"cover_url": "https://akidoo.top/images/covers/jk-ikinari-doukyo-micchaku-hatsu-ecchi-3-cv1.png",
+		"brand": "King Bee",
+		"is_censored": true,
+		"tags": [
+			"school girl",
+			"plot",
+			"hd",
+			"hand job",
+			"creampie",
+			"censored",
+			"blow job"
+		],
+		"releasedDate": "2024-04-18T12:53:19"
+	},
+	{
+		"id": 3094,
+		"idLink": "video.html?id=3094",
+		"name": "Mebuki 1",
+		"link": "mebuki-the-animation-1",
+		"description": "<p>“Love-chan,” a gamer and streamer, is facing a downturn in views. Following a friend’s advice, she decides to reveal some of her body to attract a larger audience, resulting in a significant increase in views and followers. Despite being warned by her friend about the potential dangers, “Love-chan” goes ahead and meets her fans at a karaoke to celebrate her success. During the date “Love-chan” is drugged by a bad guy in front of her fans and is taken to a love hotel to fuck.</p>",
+		"poster_url": "https://akidoo.top/images/posters/mebuki-1-pv1.png",
+		"cover_url": "https://akidoo.top/images/covers/mebuki-1-cv1.png",
+		"brand": "Pink Pineapple",
+		"is_censored": true,
+		"tags": [
+			"rape",
+			"plot",
+			"hd",
+			"censored",
+			"big boobs"
+		],
+		"releasedDate": "2024-04-25T12:53:22"
+	},
+	{
+		"id": 3095,
+		"idLink": "video.html?id=3095",
+		"name": "Succubus Connect 1",
+		"link": "succubus-connect-1",
+		"description": "<p>Yuina, a girl in love with her non-biological brother, lives tormented by her lack of self-confidence. One day, she is guided to an unknown world by a mysterious voice. Without understanding what is happening, she is attacked by a man. In that desperate moment, she is saved by the specter of a succubus that possesses her body. The succubus defeats all enemies by fucking them, regardless of what happens to Yuina’s body and mind.</p>\n\n<p>Thus begins the adventures of Yuina, an insecure girl in an unknown world, “connected” to a perverted succubus.</p>",
+		"poster_url": "https://akidoo.top/images/posters/succubus-connect-1-pv1.png",
+		"cover_url": "https://akidoo.top/images/covers/succubus-connect-1-cv1.png",
+		"brand": "Magin Label",
+		"is_censored": true,
+		"tags": [
+			"monster",
+			"masturbation",
+			"hd",
+			"fantasy",
+			"creampie",
+			"censored",
+			"boob job",
+			"blow job",
+			"big boobs"
+		],
+		"releasedDate": "2024-04-25T12:53:23"
+	},
+	{
+		"id": 3096,
+		"idLink": "video.html?id=3096",
+		"name": "Rennyu Order: Okawari 1",
+		"link": "rennyu-order-the-animation-1",
+		"description": "<p>The protagonist, Takayuki, lives alone in Japan after being separated from his parents, who are away excavating in archaeological ruins in a distant country. One day, suddenly, Sasha, the princess of a mysterious country called Al-Fazhar and a cinnamon-skinned heroine, appears. She brings with her a letter from her father, which surprisingly reveals that Sasha has become Takayuki’s wife. Without wasting time, Sasha bewilders Takayuki by seeking the consummation of their marriage to conceive an heir and fulfill her marital duties.</p>",
+		"poster_url": "https://akidoo.top/images/posters/rennyu-order-okawari-1-pv1.png",
+		"cover_url": "https://akidoo.top/images/covers/rennyu-order-okawari-1-cv1.png",
+		"brand": "Pink Pineapple",
+		"is_censored": true,
+		"tags": [
+			"x-ray",
+			"plot",
+			"hd",
+			"facial",
+			"censored",
+			"blow job",
+			"big boobs"
+		],
+		"releasedDate": "2024-04-25T12:53:24"
 	}
 ];
