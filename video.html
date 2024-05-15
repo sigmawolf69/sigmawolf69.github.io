@@ -227,29 +227,7 @@
 
     <script>
         $(document).ready(function () {
-            $('.bottom').toggleClass('active');
-            let menu = document.querySelector('#menu-icon');
-            let navList = document.querySelector('.nav-list');
             
-            const tabs = document.querySelectorAll('[data-id]');
-            const contents = document.querySelectorAll('[data-content]');
-            let id = 0;
-
-            tabs.forEach(function (tab) {
-                tab.addEventListener('click', function () {
-                    tabs[id].classList.remove('active');
-                    tab.classList.add('active');
-                    id = tab.getAttribute('data-id');
-                    contents.forEach(function (box) {
-                        box.classList.add('hide');
-                        if (box.getAttribute('data-content') == id) {
-                            box.classList.remove('hide');
-                            box.classList.add('show');
-                        }
-                    });
-                });
-            });
-
             var urlId = new URLSearchParams(window.location.search).get("id");
 
             let finalData = videos[urlId];
@@ -425,6 +403,28 @@
                                             </figure>
                                         </div>`);
             })
+            $('.bottom').toggleClass('active');
+            let menu = document.querySelector('#menu-icon');
+            let navList = document.querySelector('.nav-list');
+            
+            const tabs = document.querySelectorAll('[data-id]');
+            const contents = document.querySelectorAll('[data-content]');
+            let id = 0;
+
+            tabs.forEach(function (tab) {
+                tab.addEventListener('click', function () {
+                    tabs[id].classList.remove('active');
+                    tab.classList.add('active');
+                    id = tab.getAttribute('data-id');
+                    contents.forEach(function (box) {
+                        box.classList.add('hide');
+                        if (box.getAttribute('data-content') == id) {
+                            box.classList.remove('hide');
+                            box.classList.add('show');
+                        }
+                    });
+                });
+            });
 
             
         })
