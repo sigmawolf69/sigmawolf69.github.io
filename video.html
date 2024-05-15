@@ -368,10 +368,11 @@
             $.each(finalData.tags, function (key, tag) {
                 $("#tags").append(`<a style="color:#C6700C;" href="search.html?tag=${tag}" class=" btnTag btn-1 hover-filled-slide-right">${tag}</a> `);
             })
+            // "aspectRatio":"640:267"
             $("#videoDiv").html(`<div style="padding:0%;" class="banner">
                                                 
                                             <video id="vid1" class="video-js vjs-fluid vjs-default-skin vjs-big-play-centered" controls poster="${finalData.poster_url}" playsinline
-                                                       data-setup='{ "aspectRatio":"640:267", "playbackRates": [1, 1.5, 2] ,
+                                                       data-setup='{ , "playbackRates": [1, 1.5, 2] ,
                                                             "plugins": {
                                                                     "vastClient": {
                                                                     "adTagUrl": "https://s.magsrv.com/splash.php?idzone=5120470",
