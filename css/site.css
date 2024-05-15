@@ -548,7 +548,33 @@ ul {
 .hide {
     display: none;
 }
+.banner {
+    top: 0;
+    left: 0;
+    width: 95%;
+    height: 95%; 
+    position: absolute;
+}
 
+    .banner::before {
+        /* content: "";
+        position: absolute;
+        /* width: 95%;
+        height: 80%; */
+        /* background: url(@Model.VideoInfo.Poster) no-repeat right top;
+        background-size: cover;
+        overflow: hidden;
+        -webkit-filter: blur(15px);
+        -moz-filter: blur(15px);
+        -o-filter: blur(15px);
+        -ms-filter: blur(15px);
+        filter: blur(15px);
+        -webkit-transform: scale(1.1, 1.1);
+        -moz-transform: scale(1.1, 1.1);
+        -o-transform: scale(1.1, 1.1);
+        -ms-transform: scale(1.1, 1.1);
+        transform: scale(1.1, 1.1); */
+    }
 /* @@keyframes moving {
 			from {
 				transform: translateX(-50px);
