@@ -347,7 +347,7 @@
             videosLatestFiltered = videosLatestFiltered.reverse()
 
             $.each(videosLatestFiltered, function (key, video) {
-            $("#latestMain").append(`<div class="col-lg-3 col-md-3 col-sm-6 col-6" id="Brand-${key}">
+            $("#latestMain").append(`<div class="col-lg-2 col-md-3 col-sm-6 col-6" id="Brand-${key}">
                                             <figure class="snip1466">
                                                 <img src=${video.cover_url} alt="sample52" />
                                                 <a href="video.html?id=${video.id}" class="nav-link " style="padding-top:30px; "></a>
@@ -365,7 +365,7 @@
             selectedTrending = selectedTrending.reverse()
 
             $.each(selectedTrending, function (key, video) {
-            $("#featuredMain").append(`<div class="col-lg-3 col-md-3 col-sm-6 col-6" id="Brand-${key}">
+            $("#featuredMain").append(`<div class="col-lg-2 col-md-3 col-sm-6 col-6" id="Brand-${key}">
                                             <figure class="snip1466">
                                                 <img src=${video.cover_url} alt="sample52" />
                                                 <a href="video.html?id=${video.id}" class="nav-link " style="padding-top:30px; "></a>
@@ -379,7 +379,7 @@
             let selectedShuffledVideos = shuffledVideos.slice(shuffledVideos.length - 18,shuffledVideos.length);
 
             $.each(selectedShuffledVideos, function (key, video) {
-            $("#randomMain").append(`<div class="col-lg-3 col-md-3 col-sm-6 col-6" id="Brand-${key}">
+            $("#randomMain").append(`<div class="col-lg-2 col-md-3 col-sm-6 col-6" id="Brand-${key}">
                                             <figure class="snip1466">
                                                 <img src=${video.cover_url} alt="sample52" />
                                                 <a href="video.html?id=${video.id}" class="nav-link " style="padding-top:30px; "></a>
@@ -393,7 +393,7 @@
             let selectedSameBrandVideos = sameBrandVideos.slice(sameBrandVideos.length - 18,sameBrandVideos.length);
 
             $.each(selectedSameBrandVideos, function (key, video) {
-            $("#sameBrandMain").append(`<div class="col-lg-3 col-md-3 col-sm-6 col-6" id="Brand-${key}">
+            $("#sameBrandMain").append(`<div class="col-lg-2 col-md-3 col-sm-6 col-6" id="Brand-${key}">
                                             <figure class="snip1466">
                                                 <img src=${video.cover_url} alt="sample52" />
                                                 <a href="video.html?id=${video.id}" class="nav-link " style="padding-top:30px; "></a>
