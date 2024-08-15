@@ -78709,5 +78709,91 @@ var videos = [
 			"big boobs"
 		],
 		"releasedDate": "2024-06-27T12:53:47"
+	},
+	{
+		"id": 3120,
+		"idLink": "video.html?id=3120",
+		"name": "Gobaku: Moe Mama Tsurezure 1",
+		"link": "gobaku-moe-mama-tsurezure-1",
+		"description": "<p>She's always been like a second mom to me... but as I've gotten older I can't help but notice how cute she is...</p>",
+		"poster_url": "https://akidoo.top/images/posters/gobaku-moe-mama-tsurezure-1-pv1.png",
+		"cover_url": "https://akidoo.top/images/covers/gobaku-moe-mama-tsurezure-1-cv1.png",
+		"brand": "nur",
+		"is_censored": true,
+		"tags": [
+			"plot",
+			"milf",
+			"hd",
+			"censored",
+			"blow job",
+			"big boobs"
+		],
+		"releasedDate": "2024-06-27T12:53:48"
+	},
+	{
+		"id": 3121,
+		"idLink": "video.html?id=3121",
+		"name": "Sexfriend no Senpai 1",
+		"link": "sexfriend-no-senpai-1",
+		"description": "<p>Hes a virgin... but was planning on making his debut at university... This is finally his chance! But somehow he ends up being taken out by Nana-senpai... the girl out of his league!?</p>\n<p>\"I'm looking for a friend with benefits, wanna head back to your place?\"</p>",
+		"poster_url": "https://akidoo.top/images/posters/sexfriend-no-senpai-1-pv1.png",
+		"cover_url": "https://akidoo.top/images/covers/sexfriend-no-senpai-1-cv1.png",
+		"brand": "Pink Pineapple",
+		"is_censored": true,
+		"tags": [
+			"x-ray",
+			"virgin",
+			"plot",
+			"hd",
+			"hand job",
+			"censored",
+			"blow job"
+		],
+		"releasedDate": "2024-06-27T12:53:50"
+	},
+	{
+		"id": 3122,
+		"idLink": "video.html?id=3122",
+		"name": "Sexfriend no Senpai 2",
+		"link": "sexfriend-no-senpai-2",
+		"description": "<p>Hes a virgin... but was planning on making his debut at university... This is finally his chance! But somehow he ends up being taken out by Nana-senpai... the girl out of his league!?</p>\n<p>\"I'm looking for a friend with benefits, wanna head back to your place?\"</p>",
+		"poster_url": "https://akidoo.top/images/posters/sexfriend-no-senpai-2-pv1.png",
+		"cover_url": "https://akidoo.top/images/covers/sexfriend-no-senpai-2-cv1.png",
+		"brand": "Pink Pineapple",
+		"is_censored": true,
+		"tags": [
+			"x-ray",
+			"virgin",
+			"plot",
+			"hd",
+			"hand job",
+			"censored",
+			"blow job"
+		],
+		"releasedDate": "2024-06-27T12:53:51"
+	},
+	{
+		"id": 3123,
+		"idLink": "video.html?id=3123",
+		"name": "Natsu ga Owaru made: Natsu no Owari 2",
+		"link": "natsu-ga-owaru-made-natsu-no-owari-2",
+		"description": "<p>She agreed to be taken by a perverted teacher in order to protect the dreams of her lover Kou.</p>\n<p>After being subjected to relentless pleasure-teasing torture, Yui becomes addicted to carnal desires and becomes an obedient sow...</p>",
+		"poster_url": "https://akidoo.top/images/posters/natsu-ga-owaru-made-natsu-no-owari-pv1.png",
+		"cover_url": "https://akidoo.top/images/covers/natsu-ga-owaru-made-natsu-no-owari-cv1.png",
+		"brand": "Showten",
+		"is_censored": true,
+		"tags": [
+			"teacher",
+			"rimjob",
+			"ntr",
+			"hd",
+			"creampie",
+			"censored",
+			"boob job",
+			"blow job",
+			"big boobs",
+			"anal"
+		],
+		"releasedDate": "2024-07-25T12:53:49"
 	}
 ];
