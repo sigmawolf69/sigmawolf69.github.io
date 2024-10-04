@@ -217,7 +217,7 @@
 </script>
 <script>
     $(document).ready(function () {
-        const shuffledVideos = videos.sort(() => 0.5 - Math.random());
+        const shuffledVideos = videos.filter(item => new Date(item.releasedDate) > new Date('2010-01-01')).sort(() => 0.5 - Math.random());
         let selectedShuffledVideos = shuffledVideos.slice(shuffledVideos.length - 30,shuffledVideos.length);
             
         $.each(selectedShuffledVideos, function (key, video) {
