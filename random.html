@@ -2094,7 +2094,7 @@
 <script>
     $(document).ready(function () {
         const shuffledVideos = videos.sort(() => 0.5 - Math.random());
-        let selectedShuffledVideos = shuffledVideos.slice(shuffledVideos.length - 18,shuffledVideos.length);
+        let selectedShuffledVideos = shuffledVideos.slice(shuffledVideos.length - 30,shuffledVideos.length);
             
         $.each(selectedShuffledVideos, function (key, video) {
             $("#randomMain").append(`<div class="col-lg-2 col-md-2 col-sm-6 col-6" id="Brand-${key}">

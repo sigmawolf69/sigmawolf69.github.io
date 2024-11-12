@@ -146,7 +146,6 @@
                     <main id="mainContentArea" style="padding-top:0%; background-color: #121212;">
 
 
-
                         <div class="row" id="videoInfoMain">
                             
                         </div>
@@ -154,7 +153,9 @@
                         <div class="row" id="related">
                             
                         </div>
-
+                        <button onclick="downloadImage()">
+                            Download Image
+                        </button>
 
                     </main>
                     <!-- /.row -->
@@ -168,6 +169,8 @@
     <!-- ./wrapper -->
     
 <!-- Google tag (gtag.js) -->
+ 
+<script src= "https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-M4ZRQQE7S0"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -177,6 +180,7 @@
   gtag('config', 'G-M4ZRQQE7S0');
 </script>
 <script>
+    var finaledData = undefined
     $(document).ready(function () {
         
         var urlId = new URLSearchParams(window.location.search).get("id");
@@ -185,7 +189,7 @@
         const random = Math.floor(Math.random() * (10 - 6.5 + 0.1)/0.1) * 0.1 + 6.5;
         const momentTimestamp = moment(finalData.releasedDate);
         const stringDate = momentTimestamp.format("MMM YYYY")
-        
+        finaledData = finalData
         $("#videoInfoMain").html(`
         <div class="col-lg-12 ">
                             <div class="card" style="width:auto; height:auto;background-color:#101010;border-radius:10px; padding:10px">
@@ -252,7 +256,7 @@
                                                     <source src="https://r2.1hanime.com/${finalData.link}.mp4" type="video/mp4">
                                                 </video></div> `);
     console.log("sss")
-                                                $("#related").html(`  <br/><button id="downloadButton">Download File</button>  <div class="col-lg-12 col-md-12 col-sm-12 col-12 " style="padding:0%; background-color: #121212;">
+                                                $("#related").html(`  <br/><a href="https://r2.1hanime.com/${finalData.link}.mp4" download="${finalData.name}.mp4">Download File</a>  <div class="col-lg-12 col-md-12 col-sm-12 col-12 " style="padding:0%; background-color: #121212;">
                         
                         <ul class="tabs">
                             <li class="active" data-id="0">Same Brand</li>
@@ -294,10 +298,10 @@
                             </div>
                         </div>
                     </div>`);
-        document.getElementById('downloadButton').addEventListener('click', function() 
-        { var link = document.createElement('a'); link.href = `https://r2.1hanime.com/${finalData.link}.mp4`;
-                 link.download = `${finalData.link}.mp4`; // Replace with your desired file name and extension 
-                 link.click(); });
+        // document.getElementById('downloadButton').addEventListener('click', function() 
+        // { var link = document.createElement('a'); link.href = `https://r2.1hanime.com/${finalData.link}.mp4`;
+        //          link.download = `${finalData.link}.mp4`; // Replace with your desired file name and extension 
+        //          link.click(); });
         var videosLatestFiltered = videos.slice(videos.length - 18,videos.length);
         videosLatestFiltered = videosLatestFiltered.reverse()
 
@@ -381,6 +385,34 @@
 
         
     })
+
+          
+    function downloadImage() {
+        axios({
+            url: `https://r2.1hanime.com/${finaledData.link}.mp4`,
+            method: 'GET',
+            responseType: 'blob'
+        })
+        .then((response) => {
+            if (response.status === 200) {
+                const url = 
+                    window.URL.createObjectURL
+                    (new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', `${finaledData.link}.mp4`);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                window.URL.revokeObjectURL(url);
+            } else {
+                console.error('Error: Received non-200 status code');
+            }
+        })
+        .catch((error) => {
+            console.error('Error downloading the image:', error);
+        });
+    }
 
     var currentUrl = window.location.hash.substr(1);
     //alert(currentUrl);

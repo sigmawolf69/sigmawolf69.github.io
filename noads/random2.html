@@ -159,9 +159,7 @@
                                             <div class="col-sm-12 col-md-5">
                                             </div>
                                             <div class="col-sm-12 col-md-2">
-                                                <h2 style="text-align:center"><a href="random3.html" class="nav-link ">Random 3</a></h2>
-                                                <h2 style="text-align:center"><a href="random2.html" class="nav-link ">Random 2</a></h2>
-                                                <h2 style="text-align:center"><a href="random.html" class="nav-link ">Random </a></h2>
+                                                <h2 style="text-align:center"><a href="random2.html" class="nav-link ">Random </a></h2>
                                             </div>
                                             <div class="col-sm-12 col-md-5">
                                             </div>
@@ -185,7 +183,7 @@
                                             <div class="col-sm-12 col-md-5">
                                             </div>
                                             <div class="col-sm-12 col-md-2">
-                                                <h2 style="text-align:center"><a href="random.html" class="nav-link ">Random </a></h2>
+                                                <h2 style="text-align:center"><a href="random2.html" class="nav-link ">Random </a></h2>
                                             </div>
                                             <div class="col-sm-12 col-md-5">
                                             </div>
@@ -219,7 +217,7 @@
 </script>
 <script>
     $(document).ready(function () {
-        const shuffledVideos = videos.filter(item => new Date(item.releasedDate) > new Date('2010-01-01')).sort(() => 0.5 - Math.random());
+        const shuffledVideos = videos.sort(() => 0.5 - Math.random());
         let selectedShuffledVideos = shuffledVideos.slice(shuffledVideos.length - 30,shuffledVideos.length);
             
         $.each(selectedShuffledVideos, function (key, video) {
