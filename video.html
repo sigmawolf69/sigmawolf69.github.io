@@ -235,7 +235,7 @@
             let finalData = videos[urlId];
 
             let finalSeriesData = videos.filter(({name}) => name.includes(finalData.name.slice(0, -2)));
-            if (finalSeriesData.length > 0) { 
+            if (finalSeriesData.length > 1) { 
                     $("#sameSeriesInfo").html(`<div><h3>More from this series: </div><div id="sameseries-carousel" class="owl-carousel owl-theme">
                         
                                                     </div>`);
