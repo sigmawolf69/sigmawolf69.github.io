@@ -150,6 +150,9 @@
                             
                         </div>
 
+                        <div class="row" id="sameSeriesInfo">
+                            
+                        </div>
                         <div class="row" id="related">
                             
                         </div>
@@ -186,6 +189,42 @@
         var urlId = new URLSearchParams(window.location.search).get("id");
 
         let finalData = videos[urlId];
+        let finalSeriesData = videos.filter(({name}) => name.includes(finalData.name.slice(0, -1)));
+        if (finalSeriesData.length > 0) { 
+                $("#sameSeriesInfo").html(`<div><h3>More from this series: </div><div id="sameseries-carousel" class="owl-carousel owl-theme">
+                    
+                                                </div>`);
+
+            $.each(finalSeriesData, function (key, video) {
+                $("#sameseries-carousel").append(`<figure class="snip1466">
+                                                            <img src=${video.cover_url} alt="sample52" />
+                                                            <a href="video.html?id=${video.id}" class="nav-link " style="padding-top:30px;"></a>
+                                                            <p style="font-size:large; font-weight: 900;"> <span>${video.name}</span></p>
+                                                            <p style="font-size:small; font-weight: 500;"> <span>${video.brand}</span></p>
+                                                        </figure>`);
+            })
+        }
+        
+        var owl2 = $("#sameseries-carousel");
+            owl2.owlCarousel({
+                items: 6,
+                margin: 15,
+                loop: true,
+                nav: true,
+                responsive: {
+                    0: {
+                        items: 2
+                    },
+                    600: {
+                        items: 3,
+                        merge: true,
+
+                    },
+                    1000: {
+                        items: 6
+                    }
+                }
+            });
         const random = Math.floor(Math.random() * (10 - 6.5 + 0.1)/0.1) * 0.1 + 6.5;
         const momentTimestamp = moment(finalData.releasedDate);
         const stringDate = momentTimestamp.format("MMM YYYY")
@@ -256,8 +295,7 @@
                                                     <source src="https://r2.1hanime.com/${finalData.link}.mp4" type="video/mp4">
                                                 </video></div> `);
     console.log("sss")
-                                                $("#related").html(`  <br/><a href="https://r2.1hanime.com/${finalData.link}.mp4" download="${finalData.name}.mp4">Download File</a>  <div class="col-lg-12 col-md-12 col-sm-12 col-12 " style="padding:0%; background-color: #121212;">
-                        
+        $("#related").html(`
                         <ul class="tabs">
                             <li class="active" data-id="0">Same Brand</li>
                             <li data-id="1">Random</li>
@@ -439,6 +477,37 @@
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
     }
+
+    function download(file, text) {
+
+        //creating an invisible element
+
+        let element = document.createElement('a');
+        element.setAttribute('href',
+            'data:text/plain;charset=utf-8, '
+            + encodeURIComponent(text));
+        element.setAttribute('download', file);
+        document.body.appendChild(element);
+        element.click();
+
+        document.body.removeChild(element);
+    }
+
+    // Start file download.
+
+    document.getElementById("btn")
+    .addEventListener("click", function () {
+        const fileUrl = `https://r2.1hanime.com/${finaledData.link}.mp4`; // Replace with your file URL 
+        const fileName = `${finaledData.link}.mp4`; // Replace with the desired file name 
+        const link = document.createElement('a'); 
+        link.style.display = 'none'; 
+        link.href = fileUrl; link.download = fileName; 
+        document.body.appendChild(link); link.click(); 
+        document.body.removeChild(link);
+        // window.open(`https://r2.1hanime.com/${finaledData.link}.mp4`)
+
+        // download(filename, "");
+    }, false);
 </script>
 </body>
 </html>
