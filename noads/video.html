@@ -294,7 +294,6 @@
                                                         data-viblast-key="N8FjNTQ3NDdhZqZhNGI5NWU5ZTI=">
                                                     <source src="https://r2.1hanime.com/${finalData.link}.mp4" type="video/mp4">
                                                 </video></div> `);
-    console.log("sss")
         $("#related").html(`
                         <ul class="tabs">
                             <li class="active" data-id="0">Same Brand</li>
@@ -495,19 +494,19 @@
 
     // Start file download.
 
-    document.getElementById("btn")
-    .addEventListener("click", function () {
-        const fileUrl = `https://r2.1hanime.com/${finaledData.link}.mp4`; // Replace with your file URL 
-        const fileName = `${finaledData.link}.mp4`; // Replace with the desired file name 
-        const link = document.createElement('a'); 
-        link.style.display = 'none'; 
-        link.href = fileUrl; link.download = fileName; 
-        document.body.appendChild(link); link.click(); 
-        document.body.removeChild(link);
-        // window.open(`https://r2.1hanime.com/${finaledData.link}.mp4`)
+    // document.getElementById("btn")
+    // .addEventListener("click", function () {
+    //     const fileUrl = `https://r2.1hanime.com/${finaledData.link}.mp4`; // Replace with your file URL 
+    //     const fileName = `${finaledData.link}.mp4`; // Replace with the desired file name 
+    //     const link = document.createElement('a'); 
+    //     link.style.display = 'none'; 
+    //     link.href = fileUrl; link.download = fileName; 
+    //     document.body.appendChild(link); link.click(); 
+    //     document.body.removeChild(link);
+    //     // window.open(`https://r2.1hanime.com/${finaledData.link}.mp4`)
 
-        // download(filename, "");
-    }, false);
+    //     // download(filename, "");
+    // }, false);
 </script>
 </body>
 </html>
