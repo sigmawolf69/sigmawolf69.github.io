@@ -6,11 +6,13 @@ import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
 import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination'
-import { Check, ChevronsUpDown, X } from 'lucide-react'
+import { Check, ChevronsUpDown, Moon, Sun, X } from 'lucide-react'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Command, CommandEmpty, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
 
-document.documentElement.classList.add('dark')
+const savedTheme=localStorage.getItem('theme')
+const initialDark=savedTheme?savedTheme==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches
+document.documentElement.classList.toggle('dark',initialDark)
 
 type Video = { id:string; slug:string; title:string; titleId?:string; titleSlug?:string; ep:number|null; views:number; likes:number; censored:boolean; brand:string; quality:string; year:number; language:string; duration:string; tags:string[]; cover:string; thumb:string; backdrop:string; embedUrl:string; description:string; grad:string[]; releasedAt:string }
 type Route = { path:string; params:URLSearchParams }
@@ -18,19 +20,22 @@ type Catalog = { total:number; pages:number; videos:Video[] }
 
 const catalogUrl=new URL('../videos.json',import.meta.url).href
 const DB_NAME='titties-catalog',STORE_NAME='catalog',DB_VERSION=1
-function openCatalogDb(){return new Promise<IDBDatabase>((resolve,reject)=>{const request=indexedDB.open(DB_NAME,DB_VERSION);request.onupgradeneeded=()=>{if(!request.result.objectStoreNames.contains(STORE_NAME))request.result.createObjectStore(STORE_NAME)};request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error)})}
+const withTimeout=<T,>(promise:Promise<T>,ms:number,message:string)=>new Promise<T>((resolve,reject)=>{const timer=window.setTimeout(()=>reject(new Error(message)),ms);promise.then(value=>{window.clearTimeout(timer);resolve(value)},error=>{window.clearTimeout(timer);reject(error)})})
+function openCatalogDb(){return new Promise<IDBDatabase>((resolve,reject)=>{const request=indexedDB.open(DB_NAME,DB_VERSION);request.onupgradeneeded=()=>{if(!request.result.objectStoreNames.contains(STORE_NAME))request.result.createObjectStore(STORE_NAME)};request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);request.onblocked=()=>reject(new Error('Catalog storage is blocked'))})}
 function readCachedCatalog(db:IDBDatabase){return new Promise<Catalog|undefined>((resolve,reject)=>{const request=db.transaction(STORE_NAME).objectStore(STORE_NAME).get(catalogUrl);request.onsuccess=()=>resolve(request.result as Catalog|undefined);request.onerror=()=>reject(request.error)})}
 function storeCatalog(db:IDBDatabase,value:Catalog){return new Promise<void>((resolve,reject)=>{const transaction=db.transaction(STORE_NAME,'readwrite');const store=transaction.objectStore(STORE_NAME);store.clear();store.put(value,catalogUrl);transaction.oncomplete=()=>resolve();transaction.onerror=()=>reject(transaction.error)})}
 async function loadCatalog():Promise<Catalog>{
   let db:IDBDatabase|undefined
-  try{db=await openCatalogDb();const cached=await readCachedCatalog(db);if(cached)return cached}catch{/* Storage can be unavailable in private browsing. */}
-  const response=await fetch(catalogUrl,{cache:'force-cache'});if(!response.ok)throw new Error(`Catalog request failed (${response.status})`)
+  try{db=await withTimeout(openCatalogDb(),1500,'Catalog storage timed out');const cached=await withTimeout(readCachedCatalog(db),2500,'Cached catalog read timed out');if(cached)return cached}catch{/* Storage can be unavailable or blocked; HTTP cache remains available. */}
+  const controller=new AbortController(),timer=window.setTimeout(()=>controller.abort(),30000)
+  const response=await fetch(catalogUrl,{cache:'force-cache',signal:controller.signal}).finally(()=>window.clearTimeout(timer));if(!response.ok)throw new Error(`Catalog request failed (${response.status})`)
   const value=await response.json() as Catalog
   if(db)storeCatalog(db,value).catch(()=>undefined)
   return value
 }
 
-const catalog=await loadCatalog()
+let catalog:Catalog
+try{catalog=await loadCatalog()}catch(reason){const message=reason instanceof Error?reason.message:'Unknown catalog error';const mount=document.getElementById('root');if(mount)mount.innerHTML=`<main style="min-height:100vh;display:grid;place-items:center;align-content:center;gap:12px;padding:24px;background:#090909;color:#eee;font:14px system-ui;text-align:center"><h1 style="margin:0">The video library could not load</h1><p style="color:#aaa">${message.replace(/[<>&]/g,'')}</p><button style="padding:10px 16px;border:1px solid #444;border-radius:8px;background:#222;color:#fff;cursor:pointer" onclick="location.reload()">Try again</button></main>`;throw reason}
 const videos:Video[] = Array.isArray(catalog.videos) ? catalog.videos : []
 const MEDIA_ORIGIN=(import.meta.env.VITE_MEDIA_ORIGIN||'https://animeidhentai.com').replace(/\/$/,'')
 const mediaUrl=(value?:string)=>{if(!value)return'';if(/^(?:https?:|data:|blob:)/i.test(value))return value;return new URL(value.startsWith('/')?value:`/${value}`,`${MEDIA_ORIGIN}/`).href}
@@ -54,6 +59,12 @@ function Link({href,navigate,className,style,children}:{href:string;navigate:(hr
   return <a href={href} className={className} style={style} onClick={e=>{if(!e.ctrlKey&&!e.metaKey&&!e.shiftKey&&!e.altKey){e.preventDefault();navigate(href)}}}>{children}</a>
 }
 
+function ThemeToggle(){
+  const[dark,setDark]=useState(()=>document.documentElement.classList.contains('dark'))
+  const toggle=()=>{const next=!dark;setDark(next);document.documentElement.classList.toggle('dark',next);localStorage.setItem('theme',next?'dark':'light')}
+  return <Button type="button" variant="ghost" size="icon" className="theme-toggle" onClick={toggle} aria-label={`Switch to ${dark?'light':'dark'} theme`}>{dark?<Sun/>:<Moon/>}</Button>
+}
+
 function LiveSearch({initial,onSearch,compact=false}:{initial:string;onSearch:(value:string)=>void;compact?:boolean}){
   const[value,setValue]=useState(initial);const callback=useRef(onSearch);const timerRef=useRef<number|undefined>(undefined);callback.current=onSearch
   useEffect(()=>setValue(initial),[initial])
@@ -72,7 +83,7 @@ function Header({route,navigate}:{route:Route;navigate:(href:string)=>void}){
   const[open,setOpen]=useState(false);const term=route.path==='/search'?route.params.get('q')||'':''
   return <header className="header"><Link href="/" navigate={navigate} className="brand"><span className="brand-mark">T</span><span>Titties</span></Link>
     <nav className={open?'nav open':'nav'}><Link href="/" navigate={navigate}>Home</Link><Link href="/search" navigate={navigate}>Search</Link><Link href="/categories" navigate={navigate}>Categories</Link><Link href="/brands" navigate={navigate}>Brands</Link><Link href="/random" navigate={navigate}>Random</Link></nav>
-    <LiveSearch compact initial={term} onSearch={q=>navigate(`/search${q?`?q=${encodeURIComponent(q)}`:''}`)}/><Button variant="ghost" size="icon" className="menu" onClick={()=>setOpen(!open)}>☰</Button>
+    <LiveSearch compact initial={term} onSearch={q=>navigate(`/search${q?`?q=${encodeURIComponent(q)}`:''}`)}/><ThemeToggle/><Button variant="ghost" size="icon" className="menu" onClick={()=>setOpen(!open)}>☰</Button>
   </header>
 }
 
