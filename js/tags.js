@@ -108,10 +108,6 @@ var tags = [
     "PhotoLink": "https://static-assets-44d.pages.dev/images/tags/lactation-vertical.min.jpg"
   },
   {
-    "Name": "loli",
-    "PhotoLink": "https://static-assets-44d.pages.dev/images/tags/loli-vertical.min.jpg"
-  },
-  {
     "Name": "maid",
     "PhotoLink": "https://static-assets-44d.pages.dev/images/tags/maid-vertical.min.jpg"
   },
