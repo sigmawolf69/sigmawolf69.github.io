@@ -38,6 +38,18 @@ jobs:
         env:
           VITE_MEDIA_ORIGIN: https://animeidhentai.com
 
+      - name: Verify deployable output
+        shell: bash
+        run: |
+          test -f dist/index.html
+          test -f dist/404.html
+          test -f dist/CNAME
+          if grep -q '/src/main.tsx' dist/index.html; then
+            echo 'Build output incorrectly references the TSX source entry.'
+            exit 1
+          fi
+          grep -q '/assets/index-' dist/index.html
+
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
@@ -56,4 +68,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
