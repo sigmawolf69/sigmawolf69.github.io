@@ -89,3 +89,12 @@ html{scroll-behavior:smooth;background:var(--background)}body{position:relative;
 @media(max-width:640px){.ad-wrap{margin-block:22px}}
 .blurshield-route{display:block;width:min(1500px,calc(100% - 24px));margin:24px auto 0;overflow:hidden;border:1px solid var(--glass-border);border-radius:26px;background:var(--glass);box-shadow:var(--shadow-lg);animation:page-in .45s ease both}
 @media(max-width:760px){.blurshield-route{width:calc(100% - 16px);margin-top:14px;border-radius:20px}}
+
+/* Consistent interaction focus without the browser's white click border. */
+:where(a,button,[role="button"]){-webkit-tap-highlight-color:transparent}
+:where(a,button,[role="button"]):focus{outline:none}
+:where(a,button,[role="button"]):focus:not(:focus-visible){outline:none!important}
+:where(a,button,[role="button"]):focus-visible{outline:2px solid color-mix(in srgb,#d48637 72%,transparent);outline-offset:3px}
+[data-slot="button"]:focus-visible{border-color:color-mix(in srgb,#d48637 48%,transparent)!important;outline:none!important;box-shadow:0 0 0 3px color-mix(in srgb,#d48637 22%,transparent),var(--shadow-xs)!important}
+.nav>a:focus-visible,.video-card-main:focus-visible,.directory-tile:focus-visible{border-radius:12px;box-shadow:0 0 0 3px color-mix(in srgb,#d48637 20%,transparent)!important}
+.using-pointer :where(a,button,[role="button"]):focus,.using-pointer :where(a,button,[role="button"]):focus-visible{outline:none!important;box-shadow:none!important}
