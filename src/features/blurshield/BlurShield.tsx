@@ -22,6 +22,26 @@ type BatchItem = {
   future: Region[][];
   sample?: boolean;
 };
+function drawPortableBlur(ctx: CanvasRenderingContext2D, img: HTMLImageElement, r: Region) {
+  const scale = Math.max(2, Math.min(36, Math.round(r.amount * 0.55)));
+  const padding = Math.max(8, Math.round(r.amount * 1.5));
+  const sourceX = Math.max(0, r.x - padding);
+  const sourceY = Math.max(0, r.y - padding);
+  const sourceRight = Math.min(img.naturalWidth, r.x + r.w + padding);
+  const sourceBottom = Math.min(img.naturalHeight, r.y + r.h + padding);
+  const sourceWidth = Math.max(1, sourceRight - sourceX);
+  const sourceHeight = Math.max(1, sourceBottom - sourceY);
+  const off = document.createElement("canvas");
+  off.width = Math.max(1, Math.ceil(sourceWidth / scale));
+  off.height = Math.max(1, Math.ceil(sourceHeight / scale));
+  const offCtx = off.getContext("2d")!;
+  offCtx.imageSmoothingEnabled = true;
+  offCtx.imageSmoothingQuality = "high";
+  offCtx.drawImage(img, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, off.width, off.height);
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = "high";
+  ctx.drawImage(off, 0, 0, off.width, off.height, sourceX, sourceY, sourceWidth, sourceHeight);
+}
 const sample =
   "data:image/svg+xml;charset=utf-8," +
   encodeURIComponent(
@@ -101,19 +121,7 @@ export default function Home() {
         ctx.fillStyle = r.color;
         ctx.fillRect(r.x, r.y, r.w, r.h);
       } else if (r.effect === "blur") {
-        ctx.filter = `blur(${r.amount}px)`;
-        const p = r.amount * 2;
-        ctx.drawImage(
-          img,
-          r.x - p,
-          r.y - p,
-          r.w + p * 2,
-          r.h + p * 2,
-          r.x - p,
-          r.y - p,
-          r.w + p * 2,
-          r.h + p * 2
-        );
+        drawPortableBlur(ctx, img, r);
       } else {
         const s = Math.max(4, Math.round(r.amount / 2)),
           ow = Math.max(1, Math.ceil(r.w / s)),
@@ -539,11 +547,7 @@ export default function Home() {
                   className={
                     (active?.shape ?? shape) === "rectangle" ? "active" : ""
                   }
-                  onClick={() =>
-                    active
-                      ? updateActive({ shape: "rectangle" })
-                      : setShape("rectangle")
-                  }
+                  onClick={() => {setShape("rectangle");if(active)updateActive({shape:"rectangle"})}}
                 >
                   ▭ Rectangle
                 </button>
@@ -551,11 +555,7 @@ export default function Home() {
                   className={
                     (active?.shape ?? shape) === "ellipse" ? "active" : ""
                   }
-                  onClick={() =>
-                    active
-                      ? updateActive({ shape: "ellipse" })
-                      : setShape("ellipse")
-                  }
+                  onClick={() => {setShape("ellipse");if(active)updateActive({shape:"ellipse"})}}
                 >
                   ◯ Ellipse
                 </button>
@@ -567,9 +567,7 @@ export default function Home() {
                   <button
                     key={x}
                     className={(active?.effect ?? effect) === x ? "active" : ""}
-                    onClick={() =>
-                      active ? updateActive({ effect: x }) : setEffect(x)
-                    }
+                    onClick={() => {setEffect(x);if(active)updateActive({effect:x})}}
                   >
                     <span>
                       {x === "blur" ? "◉" : x === "pixelate" ? "▦" : "■"}
@@ -592,11 +590,7 @@ export default function Home() {
                 min="6"
                 max="64"
                 value={active?.amount ?? amount}
-                onChange={(e) =>
-                  active
-                    ? updateActive({ amount: +e.target.value })
-                    : setAmount(+e.target.value)
-                }
+                onChange={(e) => {const value=+e.target.value;setAmount(value);if(active)updateActive({amount:value})}}
               />
             </Control>
             {(active?.effect ?? effect) === "solid" && (
@@ -605,11 +599,7 @@ export default function Home() {
                   className="color"
                   type="color"
                   value={active?.color ?? color}
-                  onChange={(e) =>
-                    active
-                      ? updateActive({ color: e.target.value })
-                      : setColor(e.target.value)
-                  }
+                  onChange={(e) => {setColor(e.target.value);if(active)updateActive({color:e.target.value})}}
                 />
               </Control>
             )}
@@ -625,7 +615,7 @@ export default function Home() {
                   <button
                     key={r.id}
                     className={selected === r.id ? "selected" : ""}
-                    onClick={() => setSelected(r.id)}
+                    onClick={() => {setSelected(r.id);setShape(r.shape);setEffect(r.effect);setAmount(r.amount);setColor(r.color)}}
                   >
                     <span>
                       {r.effect === "blur"
@@ -745,19 +735,7 @@ async function renderProcessed(src: string, regions: Region[]) {
       ctx.fillStyle = r.color;
       ctx.fillRect(r.x, r.y, r.w, r.h);
     } else if (r.effect === "blur") {
-      ctx.filter = `blur(${r.amount}px)`;
-      const p = r.amount * 2;
-      ctx.drawImage(
-        img,
-        r.x - p,
-        r.y - p,
-        r.w + p * 2,
-        r.h + p * 2,
-        r.x - p,
-        r.y - p,
-        r.w + p * 2,
-        r.h + p * 2
-      );
+      drawPortableBlur(ctx, img, r);
     } else {
       const s = Math.max(4, Math.round(r.amount / 2)),
         w = Math.max(1, Math.ceil(r.w / s)),
