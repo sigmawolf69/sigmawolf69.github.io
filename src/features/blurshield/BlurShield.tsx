@@ -391,7 +391,7 @@ export default function Home() {
         </div>
         <a
           className="code-link"
-          href="https://www.patreon.com/c/abcd"
+          href="https://www.patreon.com/simpwolf69/posts/blursheild-code-167799564"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Download the full website code from Patreon (opens in a new tab)"
