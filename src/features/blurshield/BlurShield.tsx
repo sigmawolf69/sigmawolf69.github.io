@@ -176,6 +176,8 @@ export default function Home() {
     };
   };
   const onDown = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    if (!e.isPrimary || e.button !== 0) return;
+    e.preventDefault();
     const p = point(e);
     startRef.current = p;
     e.currentTarget.setPointerCapture(e.pointerId);
@@ -193,6 +195,7 @@ export default function Home() {
   };
   const onMove = (e: React.PointerEvent<HTMLCanvasElement>) => {
     if (!startRef.current || !draft) return;
+    e.preventDefault();
     const p = point(e),
       s = startRef.current;
     setDraft({
@@ -518,6 +521,7 @@ export default function Home() {
               onPointerDown={onDown}
               onPointerMove={onMove}
               onPointerUp={onUp}
+              onPointerCancel={onUp}
             />
             <div className="draw-hint">✦ Click and drag to protect an area</div>
           </div>
