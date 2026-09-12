@@ -1,0 +1,79 @@
+{
+  "brand": { "name": "Titties", "mark": "T", "tagline": "Discover in HD" },
+  "navigation": {
+    "menuTitle": "Explore",
+    "items": [
+      { "label": "Home", "path": "/" },
+      { "label": "Search", "path": "/search" },
+      { "label": "Categories", "path": "/categories" },
+      { "label": "Brands", "path": "/brands" },
+      { "label": "Random", "path": "/random" },
+      { "label": "Photo Blur", "path": "/blurshield" }
+    ]
+  },
+  "home": {
+    "eyebrow": "Welcome back",
+    "heading": "What are we watching today?",
+    "featuredLabel": "Peak of the day",
+    "watchButton": "▶ Watch now"
+  },
+  "sections": {
+    "latest": "Latest",
+    "trending": "Trending",
+    "random": "Random",
+    "images": "Images",
+    "categories": "Categories",
+    "brands": "Brands",
+    "series": "More from this series",
+    "viewAll": "View all",
+    "explore": "Explore"
+  },
+  "search": {
+    "heading": "Search library",
+    "compactPlaceholder": "Search videos…",
+    "placeholder": "Search by title, tag, or brand",
+    "allVideos": "All videos",
+    "resultsFor": "Results for",
+    "emptyTitle": "No videos found",
+    "emptyText": "Try a different category, brand, or search.",
+    "clear": "Clear",
+    "clearFilters": "Clear filters"
+  },
+  "directory": { "description": "Browse the complete library" },
+  "gallery": {
+    "heading": "Images",
+    "countSuffix": "images in the gallery",
+    "imageLabel": "Gallery image",
+    "openSupport": "Open Patreon",
+    "viewAll": "View all images",
+    "previous": "Previous image",
+    "next": "Next image"
+  },
+  "watch": {
+    "nowPlaying": "Now playing",
+    "missingDescription": "No description is available for this video."
+  },
+  "footer": { "message": "Watch your favorites in HD." },
+  "errors": {
+    "library": "The library could not load",
+    "page": "Page not found",
+    "video": "Video not found",
+    "image": "Image not found",
+    "returnHome": "Return home",
+    "reload": "Reload"
+  },
+  "links": {
+    "galleryApi": "https://random-gallery-api.hentaititties.workers.dev/",
+    "videosJson": "https://www.hentaititties.com/videos.json",
+    "patreon": "https://www.patreon.com/c/simpwolf69"
+  },
+  "mascot": {
+    "quotes": [
+      "Psst… still there?",
+      "One more video?",
+      "I found something weird.",
+      "Need a random pick?",
+      "Your screen missed you."
+    ]
+  }
+}

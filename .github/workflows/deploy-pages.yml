@@ -37,6 +37,7 @@ jobs:
         run: npm run build
         env:
           VITE_MEDIA_ORIGIN: https://animeidhentai.com
+          VITE_VIDEOS_URL: https://www.tt.com/videos.json
           VITE_GALLERY_MANIFEST_URL: ${{ vars.VITE_GALLERY_MANIFEST_URL }}
 
       - name: Verify deployable output
