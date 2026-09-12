@@ -1,0 +1,22 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "random-gallery-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-12",
+  "workers_dev": true,
+  "r2_buckets": [
+    {
+      "binding": "GALLERY_BUCKET",
+      "bucket_name": "himages"
+    }
+  ],
+  "vars": {
+    "PUBLIC_BASE_URL": "https://www.hentaititties.com",
+    "IMAGE_PREFIX": "gallery/images",
+    "SELECTION_KEY": "gallery/random-10.json",
+    "ALLOWED_ORIGIN": "*"
+  },
+  "triggers": {
+    "crons": ["0 */4 * * *"]
+  }
+}
