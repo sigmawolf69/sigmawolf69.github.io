@@ -1330,6 +1330,11 @@ function ImageCarousel({
         </Link>
         <div className="section-actions">
           <Button asChild variant="ghost" size="sm" className="section-link">
+            <a href={PATREON_URL} target="_blank" rel="noreferrer">
+              {siteContent.gallery.openSupport} <span>↗</span>
+            </a>
+          </Button>
+          <Button asChild variant="ghost" size="sm" className="section-link">
             <Link href="/images" navigate={navigate}>
               {siteContent.sections.viewAll} <span>→</span>
             </Link>
@@ -1396,6 +1401,11 @@ function ImagesPage({
             {images.length} {siteContent.gallery.countSuffix}
           </p>
         </div>
+        <Button asChild variant="outline" className="gallery-support-link">
+          <a href={PATREON_URL} target="_blank" rel="noreferrer">
+            {siteContent.gallery.openSupport} <span>↗</span>
+          </a>
+        </Button>
       </div>
       <div className="image-grid">
         {images.map((image) => (
@@ -2129,7 +2139,8 @@ function App() {
       </div>
     );
   const adRouteKey = `${route.path}?${route.params.toString()}`,
-    routeKey = `${route.noAds ? "noads:" : ""}${adRouteKey}`;
+    routeKey = `${route.noAds ? "noads:" : ""}${adRouteKey}`,
+    isImageRoute = route.path === "/images" || route.path.startsWith("/image/");
   return (
     <div className="app">
       <Seo route={route} />
@@ -2161,7 +2172,11 @@ function App() {
         <p>{siteContent.footer.message}</p>
         <span>© {new Date().getFullYear()}</span>
       </motion.footer>
-      <Ads key={adRouteKey} disabled={route.noAds} routeKey={adRouteKey} />
+      <Ads
+        key={adRouteKey}
+        disabled={route.noAds || isImageRoute}
+        routeKey={adRouteKey}
+      />
       <ClickEffects />
       <InactivityMascot />
     </div>
