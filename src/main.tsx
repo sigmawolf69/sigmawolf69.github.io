@@ -26,8 +26,11 @@ import {
 import {
   Check,
   ChevronsUpDown,
+  Maximize2,
   Menu as MenuIcon,
   Moon,
+  Pause,
+  Play,
   Sun,
   Volume2,
   VolumeX,
@@ -1469,6 +1472,105 @@ function ImagesPage({
   );
 }
 
+function GalleryVideoPlayer({ media }: { media: GalleryImage }) {
+  const player = useRef<HTMLDivElement>(null),
+    video = useRef<HTMLVideoElement>(null),
+    [playing, setPlaying] = useState(true),
+    [muted, setMuted] = useState(true),
+    [current, setCurrent] = useState(0),
+    [duration, setDuration] = useState(0);
+  const togglePlayback = () => {
+    if (!video.current) return;
+    if (video.current.paused) video.current.play().catch(() => undefined);
+    else video.current.pause();
+  };
+  const toggleMuted = () => {
+    if (!video.current) return;
+    video.current.muted = !video.current.muted;
+    setMuted(video.current.muted);
+  };
+  const formatTime = (seconds: number) => {
+    if (!Number.isFinite(seconds)) return "0:00";
+    const minutes = Math.floor(seconds / 60),
+      remainder = Math.floor(seconds % 60);
+    return `${minutes}:${remainder.toString().padStart(2, "0")}`;
+  };
+  return (
+    <motion.div
+      className="gallery-video-player"
+      ref={player}
+      initial={{ opacity: 0, scale: 0.96 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.45, ease: "easeOut" }}
+    >
+      <video
+        ref={video}
+        key={media.slug}
+        src={media.src}
+        aria-label={media.title}
+        autoPlay
+        muted
+        playsInline
+        preload="metadata"
+        onClick={togglePlayback}
+        onPlay={() => setPlaying(true)}
+        onPause={() => setPlaying(false)}
+        onTimeUpdate={(event) => setCurrent(event.currentTarget.currentTime)}
+        onLoadedMetadata={(event) => setDuration(event.currentTarget.duration)}
+      />
+      <div className="gallery-video-controls">
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          onClick={togglePlayback}
+          aria-label={playing ? "Pause video" : "Play video"}
+        >
+          {playing ? <Pause /> : <Play />}
+        </Button>
+        <span className="gallery-video-time">{formatTime(current)}</span>
+        <input
+          type="range"
+          min="0"
+          max={duration || 0}
+          step="0.1"
+          value={Math.min(current, duration || 0)}
+          onChange={(event) => {
+            const time = Number(event.target.value);
+            if (video.current) video.current.currentTime = time;
+            setCurrent(time);
+          }}
+          aria-label="Video progress"
+          style={
+            {
+              "--video-progress": `${duration ? (current / duration) * 100 : 0}%`,
+            } as React.CSSProperties
+          }
+        />
+        <span className="gallery-video-time">{formatTime(duration)}</span>
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          onClick={toggleMuted}
+          aria-label={muted ? "Unmute video" : "Mute video"}
+        >
+          {muted ? <VolumeX /> : <Volume2 />}
+        </Button>
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          onClick={() => player.current?.requestFullscreen?.()}
+          aria-label="View fullscreen"
+        >
+          <Maximize2 />
+        </Button>
+      </div>
+    </motion.div>
+  );
+}
+
 function ImagePage({
   image,
   images,
@@ -1485,6 +1587,7 @@ function ImagePage({
       navigate(`/image/${encodeURIComponent(item.slug)}`);
   useEffect(() => {
     const keyboard = (event: KeyboardEvent) => {
+      if ((event.target as HTMLElement).closest("button, input, video")) return;
       if (event.key === "ArrowLeft" && previous) go(previous);
       if (event.key === "ArrowRight" && next) go(next);
       if (event.key === "Escape") navigate("/images");
@@ -1497,18 +1600,7 @@ function ImagePage({
       <div className="image-viewer">
         <div className="slideshow-stage">
           {image.type === "video" ? (
-            <motion.video
-              key={image.slug}
-              src={image.src}
-              aria-label={image.title}
-              controls
-              autoPlay
-              playsInline
-              preload="metadata"
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.45, ease: "easeOut" }}
-            />
+            <GalleryVideoPlayer key={image.slug} media={image} />
           ) : (
             <a
               href={PATREON_URL}

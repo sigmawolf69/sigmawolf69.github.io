@@ -3178,6 +3178,89 @@ footer {
   max-height: 76vh;
   object-fit: contain;
 }
+.gallery-video-player {
+  position: relative;
+  display: grid;
+  width: 100%;
+  place-items: center;
+  overflow: hidden;
+  background: #000;
+}
+.gallery-video-player:fullscreen {
+  height: 100%;
+}
+.gallery-video-player:fullscreen video {
+  max-height: 100vh;
+}
+.gallery-video-controls {
+  position: absolute;
+  z-index: 4;
+  right: 14px;
+  bottom: 14px;
+  left: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 10px;
+  border: 1px solid color-mix(in srgb, white 16%, transparent);
+  border-radius: 14px;
+  color: #fff;
+  background: color-mix(in srgb, #09090b 76%, transparent);
+  box-shadow: 0 12px 35px #0008;
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+}
+.gallery-video-controls button {
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  color: #fff;
+}
+.gallery-video-controls button:hover {
+  color: var(--primary);
+  background: #ffffff14;
+}
+.gallery-video-controls svg {
+  width: 17px;
+  height: 17px;
+}
+.gallery-video-controls input[type="range"] {
+  min-width: 40px;
+  flex: 1;
+  height: 4px;
+  appearance: none;
+  border-radius: 999px;
+  outline: 0;
+  background: linear-gradient(
+    90deg,
+    var(--primary) var(--video-progress),
+    #ffffff3d var(--video-progress)
+  );
+  cursor: pointer;
+}
+.gallery-video-controls input[type="range"]::-webkit-slider-thumb {
+  width: 14px;
+  height: 14px;
+  appearance: none;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 2px 8px #0008;
+}
+.gallery-video-controls input[type="range"]::-moz-range-thumb {
+  width: 11px;
+  height: 11px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--primary);
+}
+.gallery-video-time {
+  min-width: 34px;
+  color: #ffffffbd;
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
+  text-align: center;
+}
 .slide-arrow {
   position: absolute;
   z-index: 2;
@@ -3209,6 +3292,21 @@ footer {
 @media (max-width: 760px) {
   .slideshow-stage img {
     max-height: 68vh;
+  }
+  .gallery-video-controls {
+    right: 8px;
+    bottom: 8px;
+    left: 8px;
+    gap: 3px;
+    padding: 6px;
+    border-radius: 12px;
+  }
+  .gallery-video-controls button {
+    width: 34px;
+    height: 34px;
+  }
+  .gallery-video-time {
+    display: none;
   }
   .slide-arrow {
     width: 40px !important;
