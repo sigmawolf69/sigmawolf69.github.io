@@ -4,7 +4,7 @@ const origin = "https://hentaititties.com";
 const contentUrl = new URL("../src/site-content.json", import.meta.url);
 const siteContent = JSON.parse(await readFile(contentUrl, "utf8"));
 const catalogUrl = (
-  process.env.VITE_VIDEOS_URL || siteContent.links.videosJson
+  process.env.VIDEOS_SOURCE_URL || siteContent.links.videosJson
 ).trim();
 
 async function loadVideos() {
@@ -16,7 +16,12 @@ async function loadVideos() {
     if (!response.ok) {
       throw new Error(`HTTP ${response.status} ${response.statusText}`);
     }
-    const catalog = await response.json();
+    const catalogText = await response.text();
+    const catalog = JSON.parse(catalogText);
+    await writeFile(
+      new URL("../public/videos.json", import.meta.url),
+      catalogText,
+    );
     return Array.isArray(catalog) ? catalog : catalog.videos || [];
   } catch (error) {
     console.warn(

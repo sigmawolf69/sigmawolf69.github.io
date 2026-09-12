@@ -100,10 +100,7 @@ type Route = { path: string; params: URLSearchParams; noAds: boolean };
 type Catalog = { total: number; pages: number; videos: Video[] };
 type GalleryImage = { slug: string; title: string; src: string };
 
-const catalogUrl = (
-  import.meta.env.VITE_VIDEOS_URL || siteContent.links.videosJson
-).trim();
-const localCatalogUrl = new URL("../videos.json", import.meta.url).href;
+const catalogUrl = (import.meta.env.VITE_VIDEOS_URL || "/videos.json").trim();
 const DB_NAME = "titties-catalog",
   STORE_NAME = "catalog",
   DB_VERSION = 1;
@@ -178,9 +175,9 @@ async function loadCatalog(): Promise<Catalog> {
     const type = response.headers.get("content-type") || "";
     if (!type.includes("json"))
       throw new Error("Remote catalog did not return JSON");
-  } catch {
+  } catch (error) {
     if (cached) return cached;
-    response = await fetch(localCatalogUrl, { cache: "force-cache" });
+    throw error;
   } finally {
     window.clearTimeout(timer);
   }
