@@ -7,16 +7,16 @@
   "r2_buckets": [
     {
       "binding": "GALLERY_BUCKET",
-      "bucket_name": "himages"
-    }
+      "bucket_name": "himages",
+    },
   ],
   "vars": {
     "PUBLIC_BASE_URL": "https://www.hentaititties.com",
     "IMAGE_PREFIX": "gallery/images",
-    "SELECTION_KEY": "gallery/random-10.json",
-    "ALLOWED_ORIGIN": "*"
+    "SELECTION_KEY": "gallery/random-media-20-v2.json",
+    "ALLOWED_ORIGIN": "*",
   },
   "triggers": {
-    "crons": ["0 */4 * * *"]
-  }
+    "crons": ["0 */4 * * *"],
+  },
 }

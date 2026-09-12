@@ -1,6 +1,6 @@
 # Four-hour random gallery Worker
 
-This Worker exposes only 10 random images. The chosen set is saved in R2 for four hours, so cache misses around the world still read the same selection. A scheduled trigger replaces it every four hours.
+This Worker exposes up to 20 random images or videos. The chosen set is saved in R2 for four hours, so cache misses around the world still read the same selection. A scheduled trigger replaces it every four hours.
 
 ## Deploy
 

@@ -15,8 +15,9 @@ from urllib.parse import quote
 import boto3
 from botocore.exceptions import ClientError
 from PIL import Image, ImageOps
-
-SUPPORTED = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".avif", ".svg"}
+IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".avif", ".svg"}
+VIDEO_EXTENSIONS = {".mp4", ".webm", ".mov", ".m4v", ".ogv"}
+SUPPORTED = IMAGE_EXTENSIONS | VIDEO_EXTENSIONS
 HERE = Path(__file__).resolve().parent
 
 
@@ -71,9 +72,9 @@ def title_for(path: Path) -> str:
 
 
 def optimize_image(source: Path, destination: Path, report=print) -> Path:
-    """Create a web-ready WebP without modifying the user's original image."""
+    """Create a compressed WebP without modifying the original local image."""
     if source.suffix.lower() in {".svg", ".gif"}:
-        report(f"Kept original format: {source.name}")
+        report(f"Kept original image format: {source.name}")
         return source
     max_dimension = max(640, int(os.getenv("IMAGE_MAX_DIMENSION", "2400")))
     min_bytes = max(0, int(os.getenv("IMAGE_TARGET_MIN_KB", "500")) * 1024)
@@ -87,17 +88,17 @@ def optimize_image(source: Path, destination: Path, report=print) -> Path:
         quality = 98
         while True:
             image.save(destination, "WEBP", quality=quality, method=6, optimize=True)
-            size = destination.stat().st_size
-            if size <= max_bytes or quality <= 46:
+            if destination.stat().st_size <= max_bytes or quality <= 46:
                 break
             quality -= 6
         while destination.stat().st_size > max_bytes and max(image.size) > 900:
             image.thumbnail((int(image.width * .86), int(image.height * .86)), Image.Resampling.LANCZOS)
             image.save(destination, "WEBP", quality=max(44, quality), method=6, optimize=True)
-        final_size = destination.stat().st_size
-        original_size = source.stat().st_size
-        note = " (already efficient; not inflated)" if final_size < min_bytes else ""
-        report(f"Optimized: {source.name} — {original_size / 1048576:.2f} MB → {final_size / 1048576:.2f} MB{note}")
+        note = " (already efficient; not inflated)" if destination.stat().st_size < min_bytes else ""
+        report(
+            f"Compressed image: {source.name} — {source.stat().st_size / 1048576:.2f} MB → "
+            f"{destination.stat().st_size / 1048576:.2f} MB{note}"
+        )
     return destination
 
 
@@ -106,15 +107,24 @@ def sync_folder(folder: Path, report=print) -> dict:
     r2 = client(config)
     files = sorted(path for path in folder.rglob("*") if path.is_file() and path.suffix.lower() in SUPPORTED)
     if not files:
-        raise RuntimeError("No supported images were found in the selected folder.")
+        raise RuntimeError("No supported images or videos were found in the selected folder.")
     images, uploaded, skipped = [], 0, 0
-    with tempfile.TemporaryDirectory(prefix="r2-image-sync-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="r2-media-sync-") as temporary:
         temporary_root = Path(temporary)
         for index, path in enumerate(files, 1):
             original_relative = path.relative_to(folder)
-            convert = path.suffix.lower() not in {".svg", ".gif"}
-            upload_relative = original_relative.with_suffix(".webp") if convert else original_relative
-            processed = optimize_image(path, temporary_root / upload_relative, report)
+            is_video = path.suffix.lower() in VIDEO_EXTENSIONS
+            keep_image_format = path.suffix.lower() in {".svg", ".gif"}
+            upload_relative = (
+                original_relative
+                if is_video or keep_image_format
+                else original_relative.with_suffix(".webp")
+            )
+            processed = (
+                path
+                if is_video
+                else optimize_image(path, temporary_root / upload_relative, report)
+            )
             relative = upload_relative.as_posix()
             sha256 = digest(processed)
             versioned_name = f"{upload_relative.stem}-{sha256[:12]}{upload_relative.suffix.lower()}"
@@ -138,16 +148,18 @@ def sync_folder(folder: Path, report=print) -> dict:
                     ExtraArgs={"ContentType": content_type, "CacheControl": "public, max-age=31536000, immutable", "Metadata": {"sha256": sha256}},
                 )
                 uploaded += 1
-                report(f"[{index}/{len(files)}] Uploaded: {relative}")
+                upload_note = "original video" if is_video else "image"
+                report(f"[{index}/{len(files)}] Uploaded {upload_note}: {relative}")
             images.append({
                 "id": sha256[:16],
                 "slug": quote(original_relative.as_posix().rsplit(".", 1)[0], safe=""),
                 "title": title_for(path),
                 "url": f"{config['public']}/{quote(key, safe='/')}",
+                "type": "video" if is_video else "image",
                 "width": None,
                 "height": None,
             })
-    manifest = {"version": 1, "updatedAt": datetime.now(timezone.utc).isoformat(), "total": len(images), "images": images}
+    manifest = {"version": 2, "updatedAt": datetime.now(timezone.utc).isoformat(), "total": len(images), "images": images}
     r2.put_object(
         Bucket=config["bucket"], Key=config["manifest"],
         Body=json.dumps(manifest, ensure_ascii=False, separators=(",", ":")).encode("utf-8"),
@@ -164,7 +176,7 @@ def run_gui() -> None:
     from tkinter import filedialog, messagebox, ttk
 
     root = tk.Tk()
-    root.title("Cloudflare R2 Image Sync")
+    root.title("Cloudflare R2 Media Sync")
     root.geometry("680x440")
     root.minsize(560, 360)
     selected = tk.StringVar(value=str((HERE / "images").resolve()))
@@ -172,14 +184,14 @@ def run_gui() -> None:
 
     frame = ttk.Frame(root, padding=18)
     frame.pack(fill="both", expand=True)
-    ttk.Label(frame, text="Local image folder", font=("Segoe UI", 12, "bold")).pack(anchor="w")
+    ttk.Label(frame, text="Local media folder", font=("Segoe UI", 12, "bold")).pack(anchor="w")
     row = ttk.Frame(frame)
     row.pack(fill="x", pady=(8, 12))
     ttk.Entry(row, textvariable=selected).pack(side="left", fill="x", expand=True)
     ttk.Button(row, text="Browse…", command=lambda: selected.set(filedialog.askdirectory(initialdir=selected.get()) or selected.get())).pack(side="left", padx=(8, 0))
     output = tk.Text(frame, height=15, state="disabled", font=("Consolas", 9), wrap="word")
     output.pack(fill="both", expand=True)
-    sync_button = ttk.Button(frame, text="Sync images to Cloudflare R2")
+    sync_button = ttk.Button(frame, text="Sync media to Cloudflare R2")
     sync_button.pack(anchor="e", pady=(12, 0))
 
     def log(message: str) -> None:
@@ -198,7 +210,7 @@ def run_gui() -> None:
     def start() -> None:
         folder = Path(selected.get())
         if not folder.is_dir():
-            messagebox.showerror("Folder not found", "Choose a valid image folder.")
+            messagebox.showerror("Folder not found", "Choose a valid media folder.")
             return
         sync_button.configure(state="disabled")
         log("Starting secure R2 sync…")
@@ -212,7 +224,7 @@ def run_gui() -> None:
                     log(message)
                 else:
                     sync_button.configure(state="normal")
-                    (messagebox.showinfo if kind == "done" else messagebox.showerror)("R2 Image Sync", message)
+                    (messagebox.showinfo if kind == "done" else messagebox.showerror)("R2 Media Sync", message)
         except queue.Empty:
             pass
         root.after(100, poll)
@@ -223,7 +235,7 @@ def run_gui() -> None:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Sync a local image folder to Cloudflare R2.")
+    parser = argparse.ArgumentParser(description="Sync a local media folder to Cloudflare R2.")
     parser.add_argument("folder", nargs="?", type=Path, help="Folder to sync; omit to open the graphical uploader.")
     args = parser.parse_args()
     if args.folder:

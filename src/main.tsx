@@ -98,7 +98,12 @@ type Video = {
 };
 type Route = { path: string; params: URLSearchParams; noAds: boolean };
 type Catalog = { total: number; pages: number; videos: Video[] };
-type GalleryImage = { slug: string; title: string; src: string };
+type GalleryImage = {
+  slug: string;
+  title: string;
+  src: string;
+  type: "image" | "video";
+};
 
 const catalogUrl = (import.meta.env.VITE_VIDEOS_URL || "/videos.json").trim();
 const DB_NAME = "titties-catalog",
@@ -235,13 +240,14 @@ const localGalleryImages: GalleryImage[] = Object.entries(galleryModules).map(
         .replace(/[-_]+/g, " ")
         .replace(/\b\w/g, (letter) => letter.toUpperCase()),
       src,
+      type: "image",
     };
   },
 );
 const GALLERY_MANIFEST_URL = (
     import.meta.env.VITE_GALLERY_MANIFEST_URL || siteContent.links.galleryApi
   ).trim(),
-  GALLERY_CACHE_KEY = "remote-gallery-manifest-v1";
+  GALLERY_CACHE_KEY = "remote-gallery-manifest-v2";
 const PATREON_URL = siteContent.links.patreon;
 function useGalleryImages() {
   const [images, setImages] = useState<GalleryImage[]>(() => {
@@ -265,7 +271,12 @@ function useGalleryImages() {
       })
       .then(
         (manifest: {
-          images?: Array<{ slug?: string; title?: string; url?: string }>;
+          images?: Array<{
+            slug?: string;
+            title?: string;
+            url?: string;
+            type?: "image" | "video";
+          }>;
         }) => {
           const remote = (manifest.images || [])
             .filter((item) => item.slug && item.url)
@@ -273,6 +284,11 @@ function useGalleryImages() {
               slug: item.slug!,
               title: item.title || item.slug!,
               src: item.url!,
+              type:
+                item.type === "video" ||
+                /\.(?:mp4|webm|mov|m4v|ogv)(?:[?#]|$)/i.test(item.url!)
+                  ? ("video" as const)
+                  : ("image" as const),
             }));
           if (remote.length) {
             setImages(remote);
@@ -1375,7 +1391,19 @@ function ImageCarousel({
               href={`/image/${encodeURIComponent(image.slug)}`}
               navigate={navigate}
             >
-              <img src={image.src} alt={image.title} loading="lazy" />
+              {image.type === "video" ? (
+                <video
+                  src={image.src}
+                  aria-label={image.title}
+                  muted
+                  loop
+                  autoPlay
+                  playsInline
+                  preload="metadata"
+                />
+              ) : (
+                <img src={image.src} alt={image.title} loading="lazy" />
+              )}
               <strong>{image.title}</strong>
             </Link>
           </motion.div>
@@ -1419,7 +1447,19 @@ function ImagesPage({
               href={`/image/${encodeURIComponent(image.slug)}`}
               navigate={navigate}
             >
-              <img src={image.src} alt={image.title} loading="lazy" />
+              {image.type === "video" ? (
+                <video
+                  src={image.src}
+                  aria-label={image.title}
+                  muted
+                  loop
+                  autoPlay
+                  playsInline
+                  preload="metadata"
+                />
+              ) : (
+                <img src={image.src} alt={image.title} loading="lazy" />
+              )}
               <strong>{image.title}</strong>
             </Link>
           </motion.div>
@@ -1456,21 +1496,36 @@ function ImagePage({
     <main className="content image-page">
       <div className="image-viewer">
         <div className="slideshow-stage">
-          <a
-            href={PATREON_URL}
-            target="_blank"
-            rel="noreferrer"
-            aria-label={`${siteContent.gallery.openSupport} in a new tab`}
-          >
-            <motion.img
+          {image.type === "video" ? (
+            <motion.video
               key={image.slug}
               src={image.src}
-              alt={image.title}
+              aria-label={image.title}
+              controls
+              autoPlay
+              playsInline
+              preload="metadata"
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.45, ease: "easeOut" }}
             />
-          </a>
+          ) : (
+            <a
+              href={PATREON_URL}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`${siteContent.gallery.openSupport} in a new tab`}
+            >
+              <motion.img
+                key={image.slug}
+                src={image.src}
+                alt={image.title}
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.45, ease: "easeOut" }}
+              />
+            </a>
+          )}
           {images.length > 1 && (
             <>
               <Button
