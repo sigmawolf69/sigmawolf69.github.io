@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "daily-video-catalog",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-16",
+  "workers_dev": true,
+  "r2_buckets": [{ "binding": "CATALOG_BUCKET", "bucket_name": "himages" }],
+  "vars": {
+    "SOURCE_URL": "https://animeidhentai.com/api/browse",
+    "OUTPUT_KEY": "videos.json",
+    "ALLOWED_ORIGIN": "*",
+  },
+  "triggers": { "crons": ["*/10 * * * *"] },
+}

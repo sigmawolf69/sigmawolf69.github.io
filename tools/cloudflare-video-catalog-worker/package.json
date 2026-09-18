@@ -1,0 +1,12 @@
+{
+  "name": "cloudflare-video-catalog-worker",
+  "private": true,
+  "scripts": {
+    "check": "wrangler types && tsc --noEmit && wrangler deploy --dry-run",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2",
+    "wrangler": "^4.40.0"
+  }
+}
