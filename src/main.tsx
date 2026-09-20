@@ -53,11 +53,14 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
   clickEffectSettings,
   clickEffectSprites,
+  edgePeekSettings,
+  type EdgePeekMedia,
   mascotSettings,
   videoStartSoundFiles,
   videoStartSounds,
 } from "@/effects-config";
 import siteContent from "@/site-content.json";
+import adsConfig from "@/ads-config.json";
 
 const BlurShield = lazy(() => import("@/features/blurshield/BlurShield"));
 
@@ -554,7 +557,7 @@ function InactivityMascot() {
     setVisible(false);
   };
   useEffect(() => {
-    if (reduced || !firstMascot) return;
+    if (reduced || !mascotSettings.enabled || !firstMascot) return;
     const clear = () => {
         window.clearTimeout(timer.current);
         window.clearTimeout(hideTimer.current);
@@ -614,7 +617,7 @@ function InactivityMascot() {
   const fromRight = mascotSettings.corner === "right";
   return (
     <AnimatePresence>
-      {visible && choice.mascot && (
+      {mascotSettings.enabled && visible && choice.mascot && (
         <motion.div
           className={`inactivity-mascot mascot-${mascotSettings.corner}`}
           initial={{
@@ -656,6 +659,164 @@ function InactivityMascot() {
             <X />
           </button>
         </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
+type EdgePeekPosition = (typeof edgePeekSettings.positions)[number];
+
+function EdgePeekCharacter() {
+  const reduced = useReducedMotion(),
+    first = edgePeekSettings.media[0],
+    [visible, setVisible] = useState(false),
+    [media, setMedia] = useState<EdgePeekMedia | undefined>(first),
+    [position, setPosition] = useState<EdgePeekPosition>("right"),
+    [frame, setFrame] = useState(0),
+    idleTimer = useRef<number | undefined>(undefined),
+    visibleTimer = useRef<number | undefined>(undefined),
+    visibleRef = useRef(false);
+  visibleRef.current = visible;
+
+  useEffect(() => {
+    if (reduced || !edgePeekSettings.enabled || !first) return;
+    const clear = () => {
+        window.clearTimeout(idleTimer.current);
+        window.clearTimeout(visibleTimer.current);
+      },
+      hideAfter = (seconds: number) => {
+        window.clearTimeout(visibleTimer.current);
+        visibleTimer.current = window.setTimeout(() => {
+          visibleRef.current = false;
+          setVisible(false);
+          schedule();
+        }, seconds * 1000);
+      },
+      schedule = () => {
+        window.clearTimeout(idleTimer.current);
+        if (visibleRef.current) return;
+        const delay =
+          (edgePeekSettings.minIdleSeconds +
+            Math.random() *
+              (edgePeekSettings.maxIdleSeconds -
+                edgePeekSettings.minIdleSeconds)) *
+          1000;
+        idleTimer.current = window.setTimeout(() => {
+          setMedia(
+            edgePeekSettings.media[
+              Math.floor(Math.random() * edgePeekSettings.media.length)
+            ],
+          );
+          setPosition(
+            edgePeekSettings.positions[
+              Math.floor(Math.random() * edgePeekSettings.positions.length)
+            ],
+          );
+          setFrame(0);
+          visibleRef.current = true;
+          setVisible(true);
+          hideAfter(edgePeekSettings.visibleSeconds);
+        }, delay);
+      };
+    const activity = (event: Event) => {
+      if (
+        event.target instanceof Element &&
+        event.target.closest(".edge-peek-character")
+      )
+        return;
+      if (visibleRef.current) {
+        hideAfter(edgePeekSettings.hideAfterActivitySeconds);
+        return;
+      }
+      schedule();
+    };
+    schedule();
+    const events = ["pointerdown", "keydown", "scroll", "touchstart"] as const;
+    events.forEach((name) =>
+      window.addEventListener(name, activity, { passive: true }),
+    );
+    return () => {
+      clear();
+      events.forEach((name) => window.removeEventListener(name, activity));
+    };
+  }, [reduced, first]);
+
+  useEffect(() => {
+    if (!visible || media?.type !== "frames" || media.sources.length < 2)
+      return;
+    const timer = window.setInterval(
+      () => setFrame((current) => (current + 1) % media.sources.length),
+      edgePeekSettings.frameDurationMs,
+    );
+    return () => window.clearInterval(timer);
+  }, [visible, media]);
+
+  const offset = {
+      x: position.includes("right")
+        ? 180
+        : position.includes("left")
+          ? -180
+          : 0,
+      y: position.includes("top")
+        ? -180
+        : position.includes("bottom")
+          ? 180
+          : 0,
+    },
+    source = media?.sources[frame % Math.max(1, media.sources.length)],
+    isVideo =
+      media?.type === "video" ||
+      (media?.type !== "frames" &&
+        /\.(?:mp4|webm|mov|m4v|ogv)(?:[?#]|$)/i.test(source || ""));
+
+  return (
+    <AnimatePresence onExitComplete={() => setFrame(0)}>
+      {edgePeekSettings.enabled && visible && media && source && (
+        <motion.aside
+          className={`edge-peek-character edge-peek-${position}`}
+          aria-label={`${media.name} appeared from the ${position.replace("-", " ")}`}
+          initial={{ opacity: 0, x: offset.x, y: offset.y, scale: 0.92 }}
+          animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+          exit={{ opacity: 0, x: offset.x, y: offset.y, scale: 0.94 }}
+          transition={{ duration: 0.72, ease: [0.32, 0.72, 0, 1] }}
+        >
+          <motion.a
+            href={media.link}
+            target="_blank"
+            rel="noreferrer"
+            className="edge-peek-link"
+            aria-label={`Open ${media.name}'s link in a new tab`}
+          >
+            {isVideo ? (
+              <video
+                key={source}
+                src={source}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-label={media.name}
+              />
+            ) : (
+              <img src={source} alt={media.name} />
+            )}
+          </motion.a>
+          <button
+            type="button"
+            className="edge-peek-close"
+            onClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              visibleRef.current = false;
+              window.clearTimeout(visibleTimer.current);
+              setVisible(false);
+            }}
+            aria-label={`Close ${media.name}`}
+          >
+            <X />
+          </button>
+        </motion.aside>
       )}
     </AnimatePresence>
   );
@@ -1122,42 +1283,80 @@ function BlurShieldPage() {
   );
 }
 
-function Ads({ disabled, routeKey }: { disabled: boolean; routeKey: string }) {
+const adRouteMatches = (pattern: string, path: string) =>
+  pattern === "*" ||
+  pattern === path ||
+  (pattern.endsWith("/*") &&
+    (path === pattern.slice(0, -2) || path.startsWith(pattern.slice(0, -1))));
+
+function Ads({
+  disabled,
+  routeKey,
+  routePath,
+}: {
+  disabled: boolean;
+  routeKey: string;
+  routePath: string;
+}) {
+  const included = adsConfig.routes.include.some((pattern) =>
+      adRouteMatches(pattern, routePath),
+    ),
+    excluded = adsConfig.routes.exclude.some((pattern) =>
+      adRouteMatches(pattern, routePath),
+    ),
+    enabled = adsConfig.enabled && !disabled && included && !excluded,
+    displayEnabled =
+      enabled && adsConfig.provider.enabled && adsConfig.display.enabled;
   useEffect(() => {
-    if (disabled) return;
-    const provider = document.createElement("script");
-    provider.async = true;
-    provider.type = "application/javascript";
-    provider.src = "https://a.magsrv.com/ad-provider.js";
-    provider.dataset.siteAd = "provider";
-    provider.dataset.routeKey = routeKey;
-    document.body.appendChild(provider);
-    window.AdProvider = window.AdProvider || [];
-    window.AdProvider.push({ serve: {} });
-    const interstitial = document.createElement("script");
-    interstitial.async = true;
-    interstitial.type = "application/javascript";
-    interstitial.src = "https://a.pemsrv.com/fp-interstitial.js";
-    interstitial.dataset.idzone = "5108474";
-    interstitial.dataset.ad_frequency_count = "1";
-    interstitial.dataset.ad_frequency_period = "5";
-    interstitial.dataset.type = "desktop";
-    interstitial.dataset.browser_settings = "1";
-    interstitial.dataset.ad_trigger_method = "3";
-    interstitial.dataset.siteAd = "interstitial";
-    interstitial.dataset.routeKey = routeKey;
-    document.body.appendChild(interstitial);
+    if (!enabled) return;
+    const scripts: HTMLScriptElement[] = [];
+    if (adsConfig.provider.enabled && adsConfig.display.enabled) {
+      const provider = document.createElement("script");
+      provider.async = true;
+      provider.type = "application/javascript";
+      provider.src = adsConfig.provider.scriptUrl;
+      provider.dataset.siteAd = "provider";
+      provider.dataset.routeKey = routeKey;
+      document.body.appendChild(provider);
+      scripts.push(provider);
+      window.AdProvider = window.AdProvider || [];
+      window.AdProvider.push({ serve: {} });
+    }
+    if (adsConfig.interstitial.enabled) {
+      const interstitial = document.createElement("script");
+      interstitial.async = true;
+      interstitial.type = "application/javascript";
+      interstitial.src = adsConfig.interstitial.scriptUrl;
+      interstitial.dataset.idzone = adsConfig.interstitial.zoneId;
+      interstitial.dataset.ad_frequency_count = String(
+        adsConfig.interstitial.frequencyCount,
+      );
+      interstitial.dataset.ad_frequency_period = String(
+        adsConfig.interstitial.frequencyPeriod,
+      );
+      interstitial.dataset.type = adsConfig.interstitial.deviceType;
+      interstitial.dataset.browser_settings = adsConfig.interstitial
+        .browserSettings
+        ? "1"
+        : "0";
+      interstitial.dataset.ad_trigger_method = String(
+        adsConfig.interstitial.triggerMethod,
+      );
+      interstitial.dataset.siteAd = "interstitial";
+      interstitial.dataset.routeKey = routeKey;
+      document.body.appendChild(interstitial);
+      scripts.push(interstitial);
+    }
     return () => {
-      provider.remove();
-      interstitial.remove();
+      scripts.forEach((script) => script.remove());
     };
-  }, [disabled, routeKey]);
-  if (disabled) return null;
+  }, [enabled, routeKey]);
+  if (!displayEnabled) return null;
   return (
-    <aside className="ad-wrap" aria-label="Advertisement">
+    <aside className="ad-wrap" aria-label={adsConfig.display.label}>
       <ins
-        className="eas6a97888e ad-slot"
-        data-zoneid="5108472"
+        className={`${adsConfig.display.className} ad-slot`}
+        data-zoneid={adsConfig.display.zoneId}
         data-site-ad="display"
       />
     </aside>
@@ -2286,8 +2485,7 @@ function App() {
       </div>
     );
   const adRouteKey = `${route.path}?${route.params.toString()}`,
-    routeKey = `${route.noAds ? "noads:" : ""}${adRouteKey}`,
-    isImageRoute = route.path === "/images" || route.path.startsWith("/image/");
+    routeKey = `${route.noAds ? "noads:" : ""}${adRouteKey}`;
   return (
     <div className="app">
       <Seo route={route} />
@@ -2321,11 +2519,13 @@ function App() {
       </motion.footer>
       <Ads
         key={adRouteKey}
-        disabled={route.noAds || isImageRoute}
+        disabled={route.noAds}
         routeKey={adRouteKey}
+        routePath={route.path}
       />
       <ClickEffects />
       <InactivityMascot />
+      <EdgePeekCharacter />
     </div>
   );
 }

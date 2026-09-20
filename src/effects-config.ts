@@ -54,18 +54,60 @@ export const clickEffectSettings = {
 };
 
 export const mascotSettings = {
+  enabled: true,
   mascots: [
-    { image: "/mascot/peek.svg", link: siteContent.links.patreon, name: "Fox" },
+    // { image: "/mascot/peek.svg", link: siteContent.links.patreon, name: "Fox" },
+    // {
+    //   image: "/mascot/blob.svg",
+    //   link: siteContent.links.patreon,
+    //   name: "Blob",
+    // },
+    // { image: "/mascot/owl.svg", link: siteContent.links.patreon, name: "Owl" },
     {
-      image: "/mascot/blob.svg",
+      image: "/mascot/image-Photoroom.png",
       link: siteContent.links.patreon,
-      name: "Blob",
+      name: "Owl",
     },
-    { image: "/mascot/owl.svg", link: siteContent.links.patreon, name: "Owl" },
   ],
   quotes: siteContent.mascot.quotes,
   minIdleSeconds: 5,
-  maxIdleSeconds: 10,
-  stayAfterActivitySeconds: 5,
+  maxIdleSeconds: 6,
+  stayAfterActivitySeconds: 2,
   corner: "right" as "left" | "right",
+};
+
+export type EdgePeekMedia = {
+  name: string;
+  type: "auto" | "image" | "video" | "frames";
+  sources: string[];
+  link: string;
+};
+
+// Replace the sample with a PNG, GIF, WebP, MP4/WebM, or a list of animation
+// frames. A frames entry advances through every source in order and loops.
+// Video example: { name: "Luna", type: "video", sources: ["/edge-peek/luna.webm"], link: "..." }
+// Frame example: { name: "Luna", type: "frames", sources: ["/edge-peek/luna-01.webp", "/edge-peek/luna-02.webp"], link: "..." }
+export const edgePeekSettings = {
+  enabled: true,
+  media: [
+    {
+      name: "Luna",
+      type: "image" as const,
+      sources: ["/edge-peek/image-Photoroom.png"],
+      link: siteContent.links.patreon,
+    },
+  ] satisfies EdgePeekMedia[],
+  positions: [
+    "right",
+    "left",
+    "bottom-right",
+    "bottom-left",
+    "top-right",
+    "top-left",
+  ] as const,
+  minIdleSeconds: 4,
+  maxIdleSeconds: 5,
+  visibleSeconds: 3,
+  hideAfterActivitySeconds: 1,
+  frameDurationMs: 140,
 };
