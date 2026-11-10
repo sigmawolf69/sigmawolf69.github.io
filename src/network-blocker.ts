@@ -28,10 +28,10 @@ function loadCommunityBlocklist() {
   });
 }
 
-if ("requestIdleCallback" in window) {
+if (typeof window.requestIdleCallback === "function") {
   window.requestIdleCallback(loadCommunityBlocklist, { timeout: 2500 });
 } else {
-  window.setTimeout(loadCommunityBlocklist, 750);
+  globalThis.setTimeout(loadCommunityBlocklist, 750);
 }
 
 function hostMatches(hostname: string, candidates: Set<string>): boolean {

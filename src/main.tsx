@@ -112,7 +112,10 @@ type GalleryImage = {
   type: "image" | "video";
 };
 
-const catalogUrl = (import.meta.env.VITE_VIDEOS_URL || "/videos.json").trim();
+const catalogUrl = (
+  import.meta.env.VITE_VIDEOS_URL || siteContent.links.videosJson
+).trim();
+const fallbackCatalogUrl = "/videos.json";
 const DB_NAME = "titties-catalog",
   STORE_NAME = "catalog",
   DB_VERSION = 1;
@@ -187,9 +190,26 @@ async function loadCatalog(): Promise<Catalog> {
     const type = response.headers.get("content-type") || "";
     if (!type.includes("json"))
       throw new Error("Remote catalog did not return JSON");
-  } catch (error) {
-    if (cached) return cached;
-    throw error;
+  } catch (remoteError) {
+    if (catalogUrl !== fallbackCatalogUrl) {
+      try {
+        response = await fetch(fallbackCatalogUrl, {
+          cache: "no-cache",
+          signal: AbortSignal.timeout(30_000),
+        });
+        if (!response.ok)
+          throw new Error(`Fallback catalog request failed (${response.status})`);
+        const type = response.headers.get("content-type") || "";
+        if (!type.includes("json"))
+          throw new Error("Fallback catalog did not return JSON");
+      } catch {
+        if (cached) return cached;
+        throw remoteError;
+      }
+    } else {
+      if (cached) return cached;
+      throw remoteError;
+    }
   } finally {
     window.clearTimeout(timer);
   }
