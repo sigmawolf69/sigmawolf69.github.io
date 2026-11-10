@@ -107,7 +107,7 @@ export const edgePeekSettings = {
   ] as const,
   minIdleSeconds: 4,
   maxIdleSeconds: 5,
-  visibleSeconds: 3,
+  visibleSeconds: 0,
   hideAfterActivitySeconds: 1,
   frameDurationMs: 140,
 };

@@ -1,3 +1,4 @@
+import "./network-blocker";
 import React, {
   lazy,
   Suspense,
@@ -2312,6 +2313,7 @@ function Watch({
           src={video.embedUrl}
           title={video.title}
           allow="autoplay; fullscreen; picture-in-picture"
+          sandbox="allow-scripts allow-same-origin allow-presentation"
           allowFullScreen
           referrerPolicy="no-referrer"
         />

@@ -10,12 +10,21 @@ HEADERS = {
     "Accept": "application/json",
 }
 
-def fetch_page(page: int) -> dict:
-    """Fetch a single page and return the JSON response."""
+def fetch_page(page: int, max_retries: int = 3) -> dict:
+    """Fetch a single page with retries."""
     url = f"{BASE_URL}?page={page}"
-    response = requests.get(url, headers=HEADERS, timeout=30)
-    response.raise_for_status()
-    return response.json()
+    
+    for attempt in range(1, max_retries + 1):
+        try:
+            response = requests.get(url, headers=HEADERS, timeout=30)
+            response.raise_for_status()
+            return response.json()
+        except Exception as e:
+            print(f"  Attempt {attempt}/{max_retries} failed for page {page}: {e}")
+            if attempt < max_retries:
+                time.sleep(1.5 * attempt)  # increasing delay
+            else:
+                raise  # re-raise after all retries failed
 
 def scrape_all():
     print("Fetching first page to get total pages...")
@@ -40,11 +49,11 @@ def scrape_all():
             print(f"got {len(videos)} videos")
             
             # Be polite to the server
-            time.sleep(0.8)
+            time.sleep(0.1)
             
         except Exception as e:
-            print(f"Error on page {page}: {e}")
-            # Optional: continue or break depending on your preference
+            print(f"Error on page {page} after retries: {e}")
+            # Continue with next page
             continue
     
     # Build final structure

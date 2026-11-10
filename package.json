@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "node scripts/generate-sitemap.mjs && vite build",
+    "update:brave-blocklist": "node scripts/update-brave-site-blocklist.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

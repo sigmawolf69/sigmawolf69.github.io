@@ -1,0 +1,23 @@
+{
+  "enabled": true,
+  "essentialAllowedHosts": [
+    "googletagmanager.com",
+    "google-analytics.com",
+    "tagmanager.google.com",
+    "cloudflare.com",
+    "cloudflare.net",
+    "cloudflareinsights.com",
+    "nhplayer.com"
+  ],
+  "blockedHosts": [
+    "prd.jwpltx.com",
+    "entitlements.jwplayer.com",
+    "ssl.p.jwpcdn.com",
+    "core.dreamserve.dev"
+  ],
+  "blockedUrlPrefixes": [
+    "https://prd.jwpltx.com/v1/jwplayer6/ping.gif",
+    "https://ssl.p.jwpcdn.com/player/v/8.41.1/vast.js",
+    "https://core.dreamserve.dev"
+  ]
+}
